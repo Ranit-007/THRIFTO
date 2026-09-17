@@ -1,0 +1,90 @@
+Nocturne Studio — Work Progress Log
+=====================================
+Last updated: 2026-09-16
+
+PHASE 1: Foundation & Core Setup ✅ APPROVED
+---------------------------------------------
+- Next.js 15 project scaffolding with TypeScript
+- Tailwind CSS design system with CSS custom properties
+- Dark/light theme with System/Manual toggle
+- Responsive navigation (desktop + mobile hamburger)
+- Footer with newsletter, social links, store info
+- Brand config (colors, typography, social links)
+- Layout with announcement bar, page shell utility
+
+PHASE 2: Homepage & Landing Experience ✅ APPROVED
+----------------------------------------------------
+- Hero section with full-bleed image + text overlay
+- Featured products grid (dynamic from catalog data)
+- Collections showcase (The Uniform, Graphic Studies, Washed World)
+- Instagram/social gallery section
+- Brand story section
+- Latest arrivals section
+- Best sellers section
+
+PHASE 3: Shopping Experience ✅ APPROVED
+-----------------------------------------
+- Shop page with product grid (responsive 1-2-3-4 columns)
+- Product filtering by collection
+- Product sorting (featured, price, name)
+- Basic product detail page (server-rendered)
+- Breadcrumbs on shop and product pages
+- Product cards with hover effects (image swap)
+- Category pages
+- Cart panel (basic placeholder)
+- Search panel with product search
+
+PHASE 4: Advanced Product Experience 🔄 IN PROGRESS
+----------------------------------------------------
+- [x] Product gallery with thumbnail navigation
+- [x] Lightbox viewer with keyboard navigation
+- [x] Color variant selector
+- [x] Size variant selector
+- [x] Quantity selector
+- [x] Size guide modal
+- [x] Product details accordion (details, material, fit, weight, care)
+- [x] Delivery estimator with PIN code input
+- [x] Related products section
+- [x] Recently viewed products (localStorage-based)
+- [x] Breadcrumbs on product page
+- [x] Share button with Web Share API
+- [x] Responsive layout (grid on desktop, stacked on mobile)
+- [x] Animations with Framer Motion (respects prefers-reduced-motion)
+- [x] Cart/Wishlist Store Provider (localStorage persistence)
+- [x] Product page addToCart integrated with Store Provider
+- [x] Product page wishlist integrated with Store Provider
+- [x] Navbar cart count connected to Store Provider
+- [x] Product card quick add integrated with Store Provider
+- [x] Product card wishlist integrated with Store Provider
+- [ ] Run typecheck, lint, and build checks
+- [ ] Final completion report
+
+FILES CREATED/MODIFIED IN PHASE 4:
+-----------------------------------
+Created:
+  - components/providers/store-provider.tsx (cart + wishlist context)
+
+Modified:
+  - app/layout.tsx (added StoreProvider wrapper)
+  - app/product/[slug]/product-client.tsx (store integration)
+  - components/site/navbar.tsx (cart count from store)
+  - components/ui/product-card.tsx (store integration)
+
+NOTES:
+------
+- Product page uses lib/shop-data.ts (20 products with variants)
+- Shop page uses lib/catalog.ts (12 products, basic data)
+- Prices stored in paise (cents), displayed in INR via formatPrice()
+- Store persists cart + wishlist to localStorage
+- Cart merges items by productId + size + color
+
+PHASE 5+ STATUS: NOT STARTED (blocked until Phase 4 approved)
+--------------------------------------------------------------
+- Authentication & user accounts
+- Database (Prisma)
+- Checkout & payment (Razorpay)
+- Order management
+- Admin panel
+- Reviews & ratings
+- Shipping integration
+- Coupons & promotions
