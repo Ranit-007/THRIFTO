@@ -1,5 +1,9 @@
 export const store = {
   announcement: "Free shipping across India on orders over ₹3,000",
+  shipping: {
+    // Cart prices are stored in paise, so this represents ₹3,000.
+    freeThreshold: 300_000,
+  },
   promotion: {
     eyebrow: "05 / LIMITED DROP",
     title: "Built for the\ndifferent.",

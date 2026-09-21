@@ -18,6 +18,7 @@ import { SizeGuide } from "@/components/product/size-guide";
 import { ProductAccordion } from "@/components/product/product-accordion";
 import { DeliveryEstimator } from "@/components/product/delivery-estimator";
 import { RecentlyViewed, trackRecentlyViewed } from "@/components/product/recently-viewed";
+import { store } from "@/config/store";
 
 interface ProductDetailClientProps {
   product: Product;
@@ -294,7 +295,7 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
             <div className="product-info__shipping">
               <Truck aria-hidden="true" size={18} />
               <div>
-                <p>Free shipping on orders over {formatPrice(5000)}</p>
+                <p>Free shipping on orders over {formatPrice(store.shipping.freeThreshold)}</p>
                 <p>Ships within 2-3 business days</p>
               </div>
             </div>

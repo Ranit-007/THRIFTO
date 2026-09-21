@@ -1,0 +1,9 @@
+$env:CLAUDE_CONFIG_DIR = "$HOME\.claude-omniroute"
+
+$env:ANTHROPIC_BASE_URL = "http://localhost:20128"
+
+$env:ANTHROPIC_AUTH_TOKEN = "sk-e642452a4e0c9950-3a3af7-70fa3045"
+
+$env:ANTHROPIC_API_KEY = ""
+
+$env:ANTHROPIC_MODEL = "Ranit-ai"

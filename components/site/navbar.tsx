@@ -3,21 +3,23 @@
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Heart, Menu, Search, ShoppingBag, UserRound, X } from "lucide-react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { type ChangeEvent, type KeyboardEvent, useEffect, useMemo, useState } from "react";
 import { mobileNavigation, primaryNavigation } from "@/config/navigation";
 import { store } from "@/config/store";
 import { products } from "@/lib/catalog";
 import { Logo } from "@/components/site/logo";
 import { useStore } from "@/components/providers/store-provider";
+import { CartDrawer } from "@/components/cart/CartDrawer";
 
-type Panel = "search" | "account" | "wishlist" | "cart";
+type Panel = "search" | "account" | "cart";
 
 export function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [panel, setPanel] = useState<Panel | null>(null);
   const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
+  const router = useRouter();
   const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
@@ -52,6 +54,11 @@ export function Navbar() {
     setPanel(nextPanel);
   }
 
+  function openWishlist() {
+    setMenuOpen(false);
+    router.push("/wishlist");
+  }
+
   return (
     <>
       <div className="announcement-bar" role="status">
@@ -70,7 +77,7 @@ export function Navbar() {
         <div className="navbar__end">
           <HeaderAction label="Search" onClick={() => openPanel("search")}><Search aria-hidden="true" size={18} /></HeaderAction>
           <HeaderAction label="Account" onClick={() => openPanel("account")}><UserRound aria-hidden="true" size={18} /></HeaderAction>
-          <HeaderAction label="Wishlist" onClick={() => openPanel("wishlist")}><Heart aria-hidden="true" size={18} /></HeaderAction>
+          <HeaderAction label="Wishlist" onClick={openWishlist}><Heart aria-hidden="true" size={18} /></HeaderAction>
           <HeaderAction label="Cart" onClick={() => openPanel("cart")} count={cartTotalQuantity}><ShoppingBag aria-hidden="true" size={18} /></HeaderAction>
           <button
             className="menu-toggle"
@@ -111,14 +118,16 @@ export function Navbar() {
             <div className="mobile-nav__utilities" aria-label="Store tools">
               <button type="button" onClick={() => openPanel("search")}><Search aria-hidden="true" size={18} /> Search</button>
               <button type="button" onClick={() => openPanel("account")}><UserRound aria-hidden="true" size={18} /> Account</button>
-              <button type="button" onClick={() => openPanel("wishlist")}><Heart aria-hidden="true" size={18} /> Wishlist</button>
-              <button type="button" onClick={() => openPanel("cart")}><ShoppingBag aria-hidden="true" size={18} /> Cart <span>0</span></button>
+              <button type="button" onClick={openWishlist}><Heart aria-hidden="true" size={18} /> Wishlist</button>
+              <button type="button" onClick={() => openPanel("cart")}><ShoppingBag aria-hidden="true" size={18} /> Cart <span>{cartTotalQuantity}</span></button>
             </div>
             <p>Temporary brand identity. Premium streetwear for people who move different.</p>
           </motion.div>
         ) : null}
       </AnimatePresence>
-      <FeaturePanel panel={panel} onClose={() => setPanel(null)} />
+      <FeaturePanel panel={panel === "cart" ? null : panel} onClose={() => setPanel(null)} />
+      {/* Cart Drawer */}
+      <CartDrawer isOpen={panel === "cart"} onClose={() => setPanel(null)} />
     </>
   );
 }
@@ -132,7 +141,7 @@ function HeaderAction({ children, label, count, onClick }: { children: React.Rea
   );
 }
 
-function FeaturePanel({ panel, onClose }: { panel: Panel | null; onClose: () => void }) {
+function FeaturePanel({ panel, onClose }: { panel: Exclude<Panel, "cart"> | null; onClose: () => void }) {
   const [query, setQuery] = useState("");
   const shouldReduceMotion = useReducedMotion();
   const matches = useMemo(
@@ -146,8 +155,6 @@ function FeaturePanel({ panel, onClose }: { panel: Panel | null; onClose: () => 
 
   const info = {
     account: { title: "Your account", body: "Account access will be connected when authentication is introduced. No customer data is collected in this demo." },
-    wishlist: { title: "Your wishlist", body: "Items saved to your wishlist are stored locally and persist across page reloads. Account-based saving arrives in a later phase." },
-    cart: { title: "Your cart", body: "Your cart is saved locally and persists across page reloads. Checkout and payment processing will be built in a later phase." },
   } as const;
 
   return (
@@ -165,7 +172,7 @@ function FeaturePanel({ panel, onClose }: { panel: Panel | null; onClose: () => 
             transition={{ duration: shouldReduceMotion ? 0 : 0.36, ease: [0.16, 1, 0.3, 1] }}
           >
             <div className="feature-panel__header">
-              <p>{panel === "search" ? "Search the demo collection" : "Storefront preview"}</p>
+              <p>{panel === "search" ? "Search the collection" : "Account"}</p>
               <button type="button" onClick={onClose} aria-label="Close panel"><X aria-hidden="true" size={20} /></button>
             </div>
             {panel === "search" ? (

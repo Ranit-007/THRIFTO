@@ -7,6 +7,8 @@ interface QuantitySelectorProps {
   onQuantityChange: (quantity: number) => void;
   min?: number;
   max?: number;
+  label?: string;
+  hideLabel?: boolean;
 }
 
 export function QuantitySelector({
@@ -14,6 +16,8 @@ export function QuantitySelector({
   onQuantityChange,
   min = 1,
   max = 10,
+  label = "Quantity",
+  hideLabel = false,
 }: QuantitySelectorProps) {
   const decrease = () => {
     if (quantity > min) {
@@ -28,8 +32,8 @@ export function QuantitySelector({
   };
 
   return (
-    <div className="quantity-selector">
-      <span className="quantity-selector__label">Quantity</span>
+    <div className={`quantity-selector ${hideLabel ? "quantity-selector--compact" : ""}`}>
+      <span className={hideLabel ? "sr-only" : "quantity-selector__label"}>{label}</span>
 
       <div className="quantity-selector__controls">
         <button
@@ -37,7 +41,7 @@ export function QuantitySelector({
           onClick={decrease}
           disabled={quantity <= min}
           className="quantity-selector__button"
-          aria-label="Decrease quantity"
+          aria-label={`Decrease ${label.toLowerCase()}`}
         >
           <Minus aria-hidden="true" size={16} />
         </button>
@@ -51,7 +55,7 @@ export function QuantitySelector({
           onClick={increase}
           disabled={quantity >= max}
           className="quantity-selector__button"
-          aria-label="Increase quantity"
+          aria-label={`Increase ${label.toLowerCase()}`}
         >
           <Plus aria-hidden="true" size={16} />
         </button>

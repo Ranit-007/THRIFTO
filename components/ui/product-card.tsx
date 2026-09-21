@@ -2,10 +2,10 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Heart, Plus, Star } from "lucide-react";
 import { formatPrice } from "@/config/brand";
 import type { Product } from "@/types/store";
-import { useToast } from "@/components/providers/toast-provider";
 import { useStore } from "@/components/providers/store-provider";
 
 type ProductCardProps = {
@@ -13,11 +13,18 @@ type ProductCardProps = {
   priority?: boolean;
   showRating?: boolean;
   loading?: boolean;
+  quickAddLabel?: string;
 };
 
-export function ProductCard({ product, priority = false, showRating = false, loading = false }: ProductCardProps) {
-  const { toast } = useToast();
-  const { addToCart, toggleWishlist, isInWishlist } = useStore();
+export function ProductCard({
+  product,
+  priority = false,
+  showRating = false,
+  loading = false,
+  quickAddLabel = "Quick add",
+}: ProductCardProps) {
+  const { toggleWishlist, isInWishlist } = useStore();
+  const router = useRouter();
   const isWishlisted = isInWishlist(product.id);
 
   if (loading) {
@@ -35,22 +42,10 @@ export function ProductCard({ product, priority = false, showRating = false, loa
   const isSoldOut = product.stockStatus === "sold_out";
 
   function handleAddToCart() {
-    addToCart({
-      productId: product.id,
-      slug: product.slug,
-      name: product.name,
-      size: product.sizes[0] || "M",
-      color: product.colors[0]?.name || "Default",
-      price: product.price,
-      image: product.images[0],
-      quantity: 1
-    });
-
-    toast({
-      type: "success",
-      title: "Added to cart",
-      description: `${product.name} (${product.colors[0]?.name} / ${product.sizes[0] || "M"})`,
-    });
+    // Navigate to product page for variant selection instead of blind add
+    // This respects the requirement that quick-add should not add products blindly
+    // when variant selection is required
+    router.push(`/product/${product.slug}`);
   }
 
   return (
@@ -92,10 +87,10 @@ export function ProductCard({ product, priority = false, showRating = false, loa
             type="button"
             className="product-card__quick-add"
             onClick={handleAddToCart}
-            aria-label={`Add ${product.name} to cart`}
+            aria-label={`Select options for ${product.name}`}
           >
             <Plus size={16} aria-hidden="true" />
-            <span>Quick add</span>
+            <span>{quickAddLabel}</span>
           </button>
         )}
       </div>

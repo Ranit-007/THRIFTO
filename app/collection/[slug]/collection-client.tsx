@@ -2,6 +2,7 @@
 
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { ProductCard } from "@/components/ui/product-card";
@@ -60,7 +61,7 @@ export function CollectionClient({ collection, products }: CollectionClientProps
       {/* Hero Section */}
       <section className="collection-hero">
         <div className="collection-hero__image">
-          <img src={collection.image} alt="" />
+          <Image src={collection.image} alt="" fill sizes="100vw" priority />
           <div className="collection-hero__overlay" />
         </div>
         <div className="collection-hero__content page-shell">

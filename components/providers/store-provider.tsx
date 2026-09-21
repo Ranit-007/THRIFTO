@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 
-type CartItem = {
+export type CartItem = {
   productId: string;
   slug: string;
   name: string;
@@ -24,6 +24,7 @@ type StoreContextType = {
   updateCartItemQuantity: (productId: string, size: string, color: string, quantity: number) => void;
   clearCart: () => void;
   cartTotalQuantity: number;
+  isStoreReady: boolean;
   wishlistItems: WishlistItem[];
   toggleWishlist: (productId: string) => void;
   removeFromWishlist: (productId: string) => void;
@@ -32,47 +33,108 @@ type StoreContextType = {
 
 const StoreContext = createContext<StoreContextType | undefined>(undefined);
 
+const CART_STORAGE_KEY = "nocturne-studio-cart";
+const WISHLIST_STORAGE_KEY = "nocturne-studio-wishlist";
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null;
+}
+
+function readCartItems(value: unknown): CartItem[] {
+  if (!Array.isArray(value)) return [];
+
+  return value.flatMap((item) => {
+    if (
+      !isRecord(item) ||
+      typeof item.productId !== "string" ||
+      typeof item.slug !== "string" ||
+      typeof item.name !== "string" ||
+      typeof item.size !== "string" ||
+      typeof item.color !== "string" ||
+      typeof item.image !== "string" ||
+      typeof item.price !== "number" ||
+      !Number.isFinite(item.price) ||
+      typeof item.quantity !== "number" ||
+      !Number.isFinite(item.quantity)
+    ) {
+      return [];
+    }
+
+    return [{
+      productId: item.productId,
+      slug: item.slug,
+      name: item.name,
+      size: item.size,
+      color: item.color,
+      image: item.image,
+      price: item.price,
+      quantity: Math.max(1, Math.floor(item.quantity)),
+    }];
+  });
+}
+
+function readWishlistItems(value: unknown): WishlistItem[] {
+  if (!Array.isArray(value)) return [];
+
+  const productIds = new Set<string>();
+  return value.flatMap((item) => {
+    if (!isRecord(item) || typeof item.productId !== "string" || productIds.has(item.productId)) {
+      return [];
+    }
+
+    productIds.add(item.productId);
+    return [{ productId: item.productId }];
+  });
+}
+
 export function StoreProvider({ children }: { children: ReactNode }) {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [wishlistItems, setWishlistItems] = useState<WishlistItem[]>([]);
+  const [isStoreReady, setIsStoreReady] = useState(false);
 
   // Load from localStorage on initial render
   useEffect(() => {
     try {
-      const savedCart = localStorage.getItem("nocturne-studio-cart");
+      const savedCart = localStorage.getItem(CART_STORAGE_KEY);
       if (savedCart) {
-        setCartItems(JSON.parse(savedCart));
+        setCartItems(readCartItems(JSON.parse(savedCart)));
       }
-    } catch (error) {
-      console.error("Failed to load cart from localStorage:", error);
+    } catch {
+      setCartItems([]);
     }
 
     try {
-      const savedWishlist = localStorage.getItem("nocturne-studio-wishlist");
+      const savedWishlist = localStorage.getItem(WISHLIST_STORAGE_KEY);
       if (savedWishlist) {
-        setWishlistItems(JSON.parse(savedWishlist));
+        setWishlistItems(readWishlistItems(JSON.parse(savedWishlist)));
       }
-    } catch (error) {
-      console.error("Failed to load wishlist from localStorage:", error);
+    } catch {
+      setWishlistItems([]);
     }
+
+    setIsStoreReady(true);
   }, []);
 
   // Save to localStorage whenever cart or wishlist changes
   useEffect(() => {
+    if (!isStoreReady) return;
+
     try {
-      localStorage.setItem("nocturne-studio-cart", JSON.stringify(cartItems));
-    } catch (error) {
-      console.error("Failed to save cart to localStorage:", error);
+      localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cartItems));
+    } catch {
+      // Storage can be unavailable in private browsing or restricted contexts.
     }
-  }, [cartItems]);
+  }, [cartItems, isStoreReady]);
 
   useEffect(() => {
+    if (!isStoreReady) return;
+
     try {
-      localStorage.setItem("nocturne-studio-wishlist", JSON.stringify(wishlistItems));
-    } catch (error) {
-      console.error("Failed to save wishlist to localStorage:", error);
+      localStorage.setItem(WISHLIST_STORAGE_KEY, JSON.stringify(wishlistItems));
+    } catch {
+      // Storage can be unavailable in private browsing or restricted contexts.
     }
-  }, [wishlistItems]);
+  }, [wishlistItems, isStoreReady]);
 
   const addToCart = (item: Omit<CartItem, "quantity"> & { quantity?: number }) => {
     setCartItems((prev) => {
@@ -122,12 +184,14 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     color: string,
     quantity: number
   ) => {
+    const nextQuantity = Math.max(1, Math.floor(quantity));
+
     setCartItems((prev) =>
       prev.map((cartItem) =>
         cartItem.productId === productId &&
           cartItem.size === size &&
           cartItem.color === color
-          ? { ...cartItem, quantity }
+          ? { ...cartItem, quantity: nextQuantity }
           : cartItem
       )
     );
@@ -167,6 +231,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
         updateCartItemQuantity,
         clearCart,
         cartTotalQuantity,
+        isStoreReady,
         wishlistItems,
         toggleWishlist,
         removeFromWishlist,

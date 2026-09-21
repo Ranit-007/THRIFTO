@@ -2,6 +2,7 @@
 
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Grid3x3, LayoutGrid, SlidersHorizontal, X } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
@@ -327,8 +328,7 @@ export function ShopClient({
                   href={collection.href}
                   className={`shop-collections__card ${collection.span === "wide" ? "shop-collections__card--wide" : ""}`}
                 >
-                  {/* Note: Using next/image would require knowing dimensions, so we keep img for collection cards */}
-                  <img src={collection.image} alt="" loading="lazy" className="w-full h-48 object-cover" />
+                  <Image src={collection.image} alt="" fill sizes="(max-width: 900px) 100vw, 50vw" />
                   <div className="shop-collections__card-content">
                     <h3>{collection.name}</h3>
                     <p>{collection.description}</p>
