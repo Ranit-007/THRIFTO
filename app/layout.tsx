@@ -5,13 +5,14 @@ import { Navbar } from "@/components/site/navbar";
 import { Footer } from "@/components/site/footer";
 import { ToastProvider } from "@/components/providers/toast-provider";
 import { StoreProvider } from "@/components/providers/store-provider";
+import { auth } from "@/auth";
 
 export const metadata: Metadata = {
-  title: `${brand.name} — ${brand.tagline}`,
+  title: `${brand.name} â€” ${brand.tagline}`,
   description: brand.description,
   metadataBase: new URL(brand.siteUrl),
   openGraph: {
-    title: `${brand.name} — ${brand.tagline}`,
+    title: `${brand.name} â€” ${brand.tagline}`,
     description: brand.description,
     type: "website",
   },
@@ -22,13 +23,15 @@ export const viewport: Viewport = {
   colorScheme: "dark",
 };
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  const session = await auth();
+
   return (
     <html lang="en">
       <body>
         <ToastProvider>
           <StoreProvider>
-            <Navbar />
+            <Navbar session={session} />
             {children}
             <Footer />
           </StoreProvider>

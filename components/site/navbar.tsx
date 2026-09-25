@@ -1,5 +1,6 @@
 "use client";
 
+import type { Session } from "next-auth";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Heart, Menu, Search, ShoppingBag, UserRound, X } from "lucide-react";
 import Link from "next/link";
@@ -14,7 +15,7 @@ import { CartDrawer } from "@/components/cart/CartDrawer";
 
 type Panel = "search" | "account" | "cart";
 
-export function Navbar() {
+export function Navbar({ session }: { session?: Session | null }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [panel, setPanel] = useState<Panel | null>(null);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -76,7 +77,15 @@ export function Navbar() {
         </nav>
         <div className="navbar__end">
           <HeaderAction label="Search" onClick={() => openPanel("search")}><Search aria-hidden="true" size={18} /></HeaderAction>
-          <HeaderAction label="Account" onClick={() => openPanel("account")}><UserRound aria-hidden="true" size={18} /></HeaderAction>
+          {session ? (
+            <Link href="/account" className="nav-icon" aria-label="Account">
+              <UserRound aria-hidden="true" size={18} />
+            </Link>
+          ) : (
+            <HeaderAction label="Account" onClick={() => openPanel("account")}>
+              <UserRound aria-hidden="true" size={18} />
+            </HeaderAction>
+          )}
           <HeaderAction label="Wishlist" onClick={openWishlist}><Heart aria-hidden="true" size={18} /></HeaderAction>
           <HeaderAction label="Cart" onClick={() => openPanel("cart")} count={cartTotalQuantity}><ShoppingBag aria-hidden="true" size={18} /></HeaderAction>
           <button
@@ -125,7 +134,7 @@ export function Navbar() {
           </motion.div>
         ) : null}
       </AnimatePresence>
-      <FeaturePanel panel={panel === "cart" ? null : panel} onClose={() => setPanel(null)} />
+      <FeaturePanel panel={panel === "cart" ? null : panel} session={session} onClose={() => setPanel(null)} />
       {/* Cart Drawer */}
       <CartDrawer isOpen={panel === "cart"} onClose={() => setPanel(null)} />
     </>
@@ -141,7 +150,7 @@ function HeaderAction({ children, label, count, onClick }: { children: React.Rea
   );
 }
 
-function FeaturePanel({ panel, onClose }: { panel: Exclude<Panel, "cart"> | null; onClose: () => void }) {
+function FeaturePanel({ panel, session, onClose }: { panel: Exclude<Panel, "cart"> | null; session?: Session | null; onClose: () => void }) {
   const [query, setQuery] = useState("");
   const shouldReduceMotion = useReducedMotion();
   const matches = useMemo(
@@ -154,7 +163,12 @@ function FeaturePanel({ panel, onClose }: { panel: Exclude<Panel, "cart"> | null
   }, [panel]);
 
   const info = {
-    account: { title: "Your account", body: "Account access will be connected when authentication is introduced. No customer data is collected in this demo." },
+    account: {
+      title: session?.user?.name || "Your account",
+      body: session?.user ?
+        `Signed in as ${session.user?.email}. Manage your profile, addresses, and orders.` :
+        "Account access will be connected when authentication is introduced. No customer data is collected in this demo."
+    },
   } as const;
 
   return (

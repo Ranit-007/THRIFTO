@@ -2058,3 +2058,316 @@ img { object-fit: cover; }
   .cart-page__summary { margin-inline: calc(var(--page-gutter) * -1); }
   .wishlist-page__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; row-gap: 2.25rem; }
 }
+/* =========================================================================
+   AUTH & ACCOUNT
+   ========================================================================= */
+
+.auth-container {
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 4rem 1.5rem;
+  background-color: var(--color-canvas);
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 400px;
+  background: var(--color-canvas);
+}
+
+.auth-card__header {
+  margin-bottom: 2.5rem;
+  text-align: center;
+}
+
+.auth-card__title {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  letter-spacing: -0.04em;
+  margin-bottom: 0.5rem;
+}
+
+.auth-card__description {
+  color: rgb(var(--color-ash));
+  font-size: 0.9rem;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.auth-form__group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.auth-form__label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgb(var(--color-ink) / 0.8);
+}
+
+.auth-form__input {
+  background: transparent;
+  border: 1px solid rgb(var(--color-line));
+  border-radius: 0;
+  padding: 0.8rem 1rem;
+  color: rgb(var(--color-ink));
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 200ms ease;
+}
+
+.auth-form__input:focus {
+  border-color: rgb(var(--color-ink));
+}
+
+.auth-form__input[aria-invalid="true"] {
+  border-color: rgb(var(--color-ember));
+}
+
+.auth-form__error {
+  color: rgb(var(--color-ember));
+  font-size: 0.75rem;
+  margin-top: 0.2rem;
+}
+
+.auth-form__submit {
+  margin-top: 1rem;
+  width: 100%;
+  justify-content: center;
+}
+
+.auth-form__footer {
+  margin-top: 2rem;
+  text-align: center;
+  font-size: 0.85rem;
+  color: rgb(var(--color-ash));
+}
+
+.auth-form__link {
+  color: rgb(var(--color-ink));
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.auth-form__link:hover {
+  color: rgb(var(--color-ember));
+}
+
+/* Account Layout */
+.account-layout {
+  padding: 6rem 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 4rem;
+}
+
+@media (max-width: 900px) {
+  .account-layout {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+.account-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.account-sidebar__title {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  letter-spacing: -0.04em;
+}
+
+.account-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.account-nav__link {
+  padding: 0.5rem 0;
+  color: rgb(var(--color-ash));
+  font-size: 0.9rem;
+  border-bottom: 1px solid transparent;
+  transition: all 200ms ease;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.account-nav__link:hover {
+  color: rgb(var(--color-ink));
+}
+
+.account-nav__link[aria-current="page"] {
+  color: rgb(var(--color-ink));
+  border-bottom-color: rgb(var(--color-line));
+}
+
+.account-nav__logout {
+  margin-top: 2rem;
+  color: rgb(var(--color-ember));
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 0.9rem;
+  cursor: pointer;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.account-content {
+  min-height: 50vh;
+}
+
+.account-heading {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  letter-spacing: -0.04em;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgb(var(--color-line));
+}
+
+.account-section {
+  max-width: 600px;
+}
+
+.address-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.address-card {
+  border: 1px solid rgb(var(--color-line));
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.address-card__default-badge {
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: rgb(var(--color-ink));
+  color: rgb(var(--color-canvas));
+  padding: 0.2rem 0.5rem;
+  border-radius: 99px;
+  align-self: flex-start;
+  margin-bottom: 1rem;
+}
+
+.address-card__content {
+  flex: 1;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: rgb(var(--color-ash));
+  margin-bottom: 1.5rem;
+}
+
+.address-card__content strong {
+  color: rgb(var(--color-ink));
+  display: block;
+  margin-bottom: 0.2rem;
+}
+
+.address-card__actions {
+  display: flex;
+  gap: 1rem;
+  font-size: 0.8rem;
+  border-top: 1px solid rgb(var(--color-line));
+  padding-top: 1rem;
+}
+
+.address-card__action {
+  background: none;
+  border: none;
+  padding: 0;
+  color: rgb(var(--color-ink));
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+.address-card__action--danger {
+  color: rgb(var(--color-ember));
+}
+
+.empty-state {
+  text-align: center;
+  padding: 4rem 1.5rem;
+  background: rgba(var(--color-bone), 0.3);
+  border: 1px dashed rgb(var(--color-line));
+}
+
+.empty-state__title {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.empty-state__description {
+  color: rgb(var(--color-ash));
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Settings */
+.settings-group {
+  padding: 1.75rem 0;
+  border-bottom: 1px solid rgb(var(--color-line));
+}
+
+.settings-group:first-child {
+  padding-top: 0;
+}
+
+.settings-group__title {
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 1rem;
+}
+
+.settings-group__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+}
+
+.settings-group__label {
+  color: rgb(var(--color-ash));
+  font-size: 0.85rem;
+}
+
+.settings-group__value {
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.settings-group__description {
+  color: rgb(var(--color-ash));
+  font-size: 0.85rem;
+  line-height: 1.55;
+}
+
