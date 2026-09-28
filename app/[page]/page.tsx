@@ -22,7 +22,7 @@ const pages = {
   about: {
     eyebrow: "The studio",
     title: "Built for the different.",
-    copy: "Véloce is a temporary brand identity for this storefront foundation. The real brand story, editorial content and history will replace this demo copy when supplied.",
+    copy: "Baundule is a temporary brand identity for this storefront foundation. The real brand story, editorial content and history will replace this demo copy when supplied.",
     cta: "Read the point of view",
     href: "/#story",
   },

@@ -1,7 +1,7 @@
-import { auth } from "@/auth";
+﻿import { auth } from "@/auth";
 
 export const metadata = {
-  title: "Settings — Nocturne Studio",
+  title: "Settings â€” Baundule",
 };
 
 export default async function SettingsPage() {
@@ -43,3 +43,4 @@ export default async function SettingsPage() {
     </section>
   );
 }
+

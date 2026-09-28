@@ -1,7 +1,7 @@
-import { AddressForm } from "@/components/account/address-form";
+﻿import { AddressForm } from "@/components/account/address-form";
 
 export const metadata = {
-  title: "Add Address — Nocturne Studio",
+  title: "Add Address â€” Baundule",
 };
 
 export default function NewAddressPage() {

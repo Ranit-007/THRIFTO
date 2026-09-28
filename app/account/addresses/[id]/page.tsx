@@ -5,7 +5,7 @@ import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
 
 export const metadata = {
-  title: "Edit Address — Nocturne Studio",
+  title: "Edit Address — Baundule",
 };
 
 export default async function EditAddressPage({ params }: { params: Promise<{ id: string }> }) {

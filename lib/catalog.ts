@@ -31,8 +31,37 @@ const images = {
     "https://images.unsplash.com/photo-1563630423918-b58f07336ac9?auto=format&fit=crop&w=1200&q=85",
 };
 
-export const heroImage =
-  "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=2200&q=90";
+export interface HeroSlide {
+  image: string;
+  title: string;
+  subtitle: string;
+  ctaText: string;
+  ctaLink: string;
+}
+
+export const heroSlides: HeroSlide[] = [
+  {
+    image: "/hero/slide-1.jpg",
+    title: "Wear your story.",
+    subtitle: "Premium streetwear for the ones who move different.",
+    ctaText: "Shop now",
+    ctaLink: "/shop",
+  },
+  {
+    image: "/hero/slide-2.jpg",
+    title: "Made to move.",
+    subtitle: "Everyday essentials, shaped by the energy of the city.",
+    ctaText: "Explore the collection",
+    ctaLink: "#collections",
+  },
+  {
+    image: "/hero/slide-3.jpg",
+    title: "Built for the different.",
+    subtitle: "Considered silhouettes. Honest details. No ordinary days.",
+    ctaText: "See the latest drop",
+    ctaLink: "#latest-drop",
+  },
+];
 
 const allProducts: Product[] = [
   {
@@ -288,11 +317,11 @@ export const collections: Collection[] = [
 ];
 
 export const socialPosts: SocialPost[] = [
-  { alt: "Véloce street uniform", image: images.street, href: "https://instagram.com" },
-  { alt: "Véloce studio texture", image: images.fabric, href: "https://instagram.com" },
-  { alt: "Véloce graphic study", image: images.graphicTee, href: "https://instagram.com" },
-  { alt: "Véloce campaign portrait", image: images.editorial, href: "https://instagram.com" },
-  { alt: "Véloce white tee editorial", image: images.modelWhite, href: "https://instagram.com" },
+  { alt: "Baundule street uniform", image: images.street, href: "https://instagram.com" },
+  { alt: "Baundule studio texture", image: images.fabric, href: "https://instagram.com" },
+  { alt: "Baundule graphic study", image: images.graphicTee, href: "https://instagram.com" },
+  { alt: "Baundule campaign portrait", image: images.editorial, href: "https://instagram.com" },
+  { alt: "Baundule white tee editorial", image: images.modelWhite, href: "https://instagram.com" },
 ];
 
 export const storyImage = images.editorial;

@@ -1,7 +1,7 @@
-import { RegisterForm } from "./form";
+﻿import { RegisterForm } from "./form";
 
 export const metadata = {
-  title: "Create Account — Nocturne Studio",
+  title: "Create Account â€” Baundule",
 };
 
 export default function RegisterPage() {
@@ -10,7 +10,7 @@ export default function RegisterPage() {
       <div className="auth-card">
         <div className="auth-card__header">
           <h1 className="auth-card__title">Create account</h1>
-          <p className="auth-card__description">Join Nocturne Studio for exclusive access.</p>
+          <p className="auth-card__description">Join Baundule for exclusive access.</p>
         </div>
         <RegisterForm />
       </div>

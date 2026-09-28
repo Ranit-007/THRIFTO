@@ -167,7 +167,7 @@ function FeaturePanel({ panel, session, onClose }: { panel: Exclude<Panel, "cart
       title: session?.user?.name || "Your account",
       body: session?.user ?
         `Signed in as ${session.user?.email}. Manage your profile, addresses, and orders.` :
-        "Account access will be connected when authentication is introduced. No customer data is collected in this demo."
+        "Sign in to manage your orders, saved items, and personal details."
     },
   } as const;
 
@@ -195,7 +195,16 @@ function FeaturePanel({ panel, session, onClose }: { panel: Exclude<Panel, "cart
               <div className="feature-panel__message">
                 <h2 id="feature-panel-title">{info[panel].title}</h2>
                 <p>{info[panel].body}</p>
-                <button type="button" className="button button--dark" onClick={onClose}>Continue browsing</button>
+                {panel === "account" && !session?.user ? (
+                  <div style={{ display: "grid", gap: "0.65rem", marginTop: "1rem" }}>
+                    <Link href="/login" className="button button--dark" onClick={onClose}>Log In</Link>
+                    <Link href="/register" className="button button--light" onClick={onClose}>Create Account</Link>
+                  </div>
+                ) : panel === "account" && session?.user ? (
+                  <Link href="/account" className="button button--dark" onClick={onClose} style={{ marginTop: "1rem", display: "inline-flex" }}>Go to Dashboard</Link>
+                ) : (
+                  <button type="button" className="button button--dark" onClick={onClose}>Continue browsing</button>
+                )}
               </div>
             )}
           </motion.aside>

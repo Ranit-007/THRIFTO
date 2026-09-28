@@ -575,6 +575,10 @@ export const collections: Collection[] = [
   }
 ];
 
+export const getProductById = (id: string) => {
+  return productsWithVariants.find((product) => product.id === id);
+};
+
 export const getProductBySlug = (slug: string) => {
   return productsWithVariants.find((product) => product.slug === slug);
 };

@@ -19,6 +19,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
   addresses     Address[]
+  orders        Order[]
 
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
@@ -83,4 +84,75 @@ model Address {
 enum Role {
   CUSTOMER
   ADMIN
+}
+
+enum OrderStatus {
+  PENDING
+  PAID
+  PROCESSING
+  SHIPPED
+  DELIVERED
+  CANCELLED
+  FAILED
+}
+
+model Order {
+  id                   String      @id @default(cuid())
+  userId               String
+  user                 User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  status               OrderStatus @default(PENDING)
+  subtotal             Int         // in paise
+  shippingAmount       Int         // in paise
+  totalAmount          Int         // in paise
+  currency             String      @default("INR")
+  shippingFullName     String
+  shippingPhone        String
+  shippingAddressLine1 String
+  shippingAddressLine2 String?
+  shippingCity         String
+  shippingState        String
+  shippingPostalCode   String
+  shippingCountry      String
+  createdAt            DateTime    @default(now())
+  updatedAt            DateTime    @updatedAt
+  orderItems           OrderItem[]
+  payments             Payment[]
+
+  @@index([userId])
+  @@index([status])
+}
+
+model OrderItem {
+  id              String   @id @default(cuid())
+  orderId         String
+  order           Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId       String
+  productName     String
+  variantId       String?
+  variantSize     String?
+  variantColor    String?
+  variantColorHex String?
+  unitPrice       Int      // in paise
+  quantity        Int
+  totalPrice      Int      // in paise (unitPrice * quantity)
+  images          String[]
+
+  @@index([orderId])
+}
+
+model Payment {
+  id                String   @id @default(cuid())
+  orderId           String
+  order             Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  provider          String   @default("RAZORPAY")
+  providerOrderId   String   @unique // Razorpay order ID
+  providerPaymentId String?  // Razorpay payment ID
+  providerSignature String?  // Razorpay signature
+  amount            Int      // in paise
+  currency          String   @default("INR")
+  status            String   // "created", "captured", "failed"
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  @@index([orderId])
 }

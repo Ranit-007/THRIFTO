@@ -63,9 +63,9 @@ export default function CartPage() {
 
                 <ShippingProgress subtotal={subtotal} />
 
-                <button type="button" className="button button--dark cart-page__checkout" disabled>
-                  CHECKOUT — COMING SOON
-                </button>
+                <Link href="/checkout" className="button button--dark cart-page__checkout block text-center">
+                  PROCEED TO CHECKOUT
+                </Link>
                 <Link href="/shop" className="cart-page__continue-shopping">
                   CONTINUE SHOPPING <ArrowRight aria-hidden="true" size={15} />
                 </Link>

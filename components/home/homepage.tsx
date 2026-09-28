@@ -1,8 +1,8 @@
-import Image from "next/image";
-import { ArrowDown, ArrowUpRight } from "lucide-react";
-import { bestSellers, collections, heroImage, latestProducts, promotionImage, socialPosts, storyImage } from "@/lib/catalog";
-import { brand } from "@/config/brand";
+﻿import Image from "next/image";
+import { ArrowUpRight } from "lucide-react";
+import { bestSellers, collections, latestProducts, promotionImage, socialPosts, storyImage } from "@/lib/catalog";
 import { store } from "@/config/store";
+import { HeroSlider } from "@/components/HeroSlider";
 import { ArrowLink } from "@/components/ui/arrow-link";
 import { ProductCard } from "@/components/ui/product-card";
 import { Reveal } from "@/components/ui/reveal";
@@ -12,7 +12,7 @@ import { Newsletter } from "@/components/site/newsletter";
 export function Homepage() {
   return (
     <main id="top">
-      <Hero />
+      <HeroSlider />
       <LatestDrop />
       <Collections />
       <BrandStory />
@@ -24,41 +24,12 @@ export function Homepage() {
   );
 }
 
-function Hero() {
-  return (
-    <section className="hero" aria-labelledby="hero-title">
-      <Image
-        src={heroImage}
-        alt="Streetwear campaign portrait for the Nocturne temporary collection"
-        fill
-        priority
-        sizes="100vw"
-        className="hero__image"
-      />
-      <div className="hero__veil" aria-hidden="true" />
-      <div className="hero__content page-shell">
-        <p className="hero__eyebrow">Temporary brand campaign / 001</p>
-        <h1 id="hero-title">Wear your<br />story.</h1>
-        <div className="hero__footer">
-          <p>Premium streetwear for the ones who move different.</p>
-          <div className="hero__actions">
-            <a className="button button--light" href="#latest-drop">Shop now <ArrowUpRight aria-hidden="true" size={16} /></a>
-            <a className="hero__text-link" href="#collections">Explore collection</a>
-          </div>
-        </div>
-      </div>
-      <a className="hero__scroll" href="#latest-drop"><span>Scroll to enter</span><ArrowDown aria-hidden="true" size={16} /></a>
-      <p className="hero__edition">EST. 2026 / {brand.tagline.toUpperCase()}</p>
-    </section>
-  );
-}
-
 function LatestDrop() {
   return (
     <section className="section section--warm" id="latest-drop" aria-labelledby="latest-title">
       <div className="page-shell">
         <SectionHeading
-          eyebrow="01 / THE LATEST DROP"
+          eyebrow="▶ THE LATEST DROP"
           title="New arrivals."
           headingId="latest-title"
           description="A first collection of premium cotton tees, graphic studies and everyday essentials."
@@ -74,14 +45,13 @@ function LatestDrop() {
 
 function Collections() {
   return (
-    <section className="section section--dark collections" id="collections" aria-labelledby="collection-title">
+    <section className="section section--warm collections" id="collections" aria-labelledby="collection-title">
       <div className="page-shell">
         <SectionHeading
-          eyebrow="02 / BROWSE THE MOOD"
+          eyebrow="▶ BROWSE THE MOOD"
           title="Shop the collection."
           headingId="collection-title"
           description="Clean essentials and considered graphics, cut for every day."
-          inverse
         />
         <div className="collection-grid">
           {collections.map((collection) => (
@@ -105,12 +75,12 @@ function BrandStory() {
   return (
     <section className="story" id="story" aria-labelledby="story-title">
       <div className="story__image">
-        <Image src={storyImage} alt="Nocturne editorial campaign in the city" fill sizes="(max-width: 900px) 100vw, 52vw" />
+        <Image src={storyImage} alt="Baundule editorial campaign in the city" fill sizes="(max-width: 900px) 100vw, 52vw" />
       </div>
       <div className="story__content">
-        <p className="eyebrow">03 / OUR POINT OF VIEW</p>
+        <p className="eyebrow">▶ OUR POINT OF VIEW</p>
         <h2 id="story-title">Built for<br />the different.</h2>
-        <p>Véloce is made for self-expression. Premium materials, honest details and silhouettes that hold their own.</p>
+        <p>VÃ©loce is made for self-expression. Premium materials, honest details and silhouettes that hold their own.</p>
         <ArrowLink href="#newsletter">Our story</ArrowLink>
         <div className="story__note"><span>01</span><p>Small-batch studies in fabric, silhouette and time.</p></div>
       </div>
@@ -123,7 +93,7 @@ function BestSellers() {
     <section className="section section--warm best-sellers" id="best-sellers" aria-labelledby="best-sellers-title">
       <div className="page-shell">
         <SectionHeading
-          eyebrow="04 / WORN ON REPEAT"
+          eyebrow="▶ WORN ON REPEAT"
           title="Best sellers."
           headingId="best-sellers-title"
           action={{ label: "See the full edit", href: "#latest-drop" }}
@@ -156,8 +126,8 @@ function Social() {
     <section className="social section--warm" id="social" aria-labelledby="social-title">
       <div className="page-shell social__heading">
         <div>
-          <p className="eyebrow">06 / FROM THE WORLD</p>
-          <h2 id="social-title">Véloce in motion.</h2>
+          <p className="eyebrow">▶ FROM THE WORLD</p>
+          <h2 id="social-title">Baundule in motion.</h2>
         </div>
         <ArrowLink href="/contact">Contact the studio</ArrowLink>
       </div>
@@ -165,10 +135,11 @@ function Social() {
         {socialPosts.map((post) => (
           <figure key={post.alt} className="social__post">
             <Image src={post.image} alt={post.alt} fill sizes="(max-width: 700px) 50vw, 20vw" />
-            <span aria-hidden="true">VÉLOCE / CAMPAIGN</span>
+            <span aria-hidden="true">BAUNDULE / CAMPAIGN</span>
           </figure>
         ))}
       </div>
     </section>
   );
 }
+

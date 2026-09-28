@@ -1,8 +1,8 @@
-import { auth } from "@/auth";
+﻿import { auth } from "@/auth";
 import { ProfileForm } from "./form";
 
 export const metadata = {
-  title: "Profile — Nocturne Studio",
+  title: "Profile â€” Baundule",
 };
 
 export default async function ProfilePage() {

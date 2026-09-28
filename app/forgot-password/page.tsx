@@ -1,7 +1,7 @@
-import { ForgotPasswordForm } from "./form";
+﻿import { ForgotPasswordForm } from "./form";
 
 export const metadata = {
-  title: "Reset Password — Nocturne Studio",
+  title: "Reset Password â€” Baundule",
 };
 
 export default function ForgotPasswordPage() {

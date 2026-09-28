@@ -8,11 +8,16 @@ import { StoreProvider } from "@/components/providers/store-provider";
 import { auth } from "@/auth";
 
 export const metadata: Metadata = {
-  title: `${brand.name} â€” ${brand.tagline}`,
+  title: `${brand.name} — ${brand.tagline}`,
   description: brand.description,
   metadataBase: new URL(brand.siteUrl),
+  icons: {
+    icon: "/images/brand/icon.svg", // or "/logo.png"
+    shortcut: "/images/brand/icon.svg",
+    apple: "apple-touch-icon.png", // optional for iOS home screen bookmarks
+  },
   openGraph: {
-    title: `${brand.name} â€” ${brand.tagline}`,
+    title: `${brand.name} — ${brand.tagline}`,
     description: brand.description,
     type: "website",
   },
@@ -20,7 +25,7 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: brand.colors.canvas,
-  colorScheme: "dark",
+  colorScheme: "light",
 };
 
 export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

@@ -1,11 +1,11 @@
-import { auth } from "@/auth";
+﻿import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
 import { Plus } from "lucide-react";
 import { AddressList } from "./list";
 
 export const metadata = {
-  title: "Addresses — Nocturne Studio",
+  title: "Addresses â€” Baundule",
 };
 
 export default async function AddressesPage() {

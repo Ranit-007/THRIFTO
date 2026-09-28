@@ -1,7 +1,7 @@
-import { auth } from "@/auth";
+﻿import { auth } from "@/auth";
 
 export const metadata = {
-  title: "Account Dashboard — Nocturne Studio",
+  title: "Account Dashboard â€” Baundule",
 };
 
 export default async function AccountPage() {

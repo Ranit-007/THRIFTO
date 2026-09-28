@@ -1,16 +1,16 @@
 export const brand = {
-  name: "THRIFTO",
-  legalName: "Thrifto-Apperals",
-  isDemo: true,
+  name: "Baundule",
+  legalName: "Baundule",
+  isDemo: false,
   tagline: "Wear your story.",
   description:
-    "Temporary identity for premium streetwear, built for the ones who move different.",
+    "Premium streetwear for people who move different.",
   locale: "en-IN",
   currency: "INR",
   currencyCode: "INR",
   siteUrl: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
   contact: {
-    email: "studio@nocturne.example",
+    email: "studio@baundule.example",
     location: "Kolkata / Worldwide",
   },
   social: {
@@ -23,10 +23,10 @@ export const brand = {
     editorial: "Georgia / serif fallback",
   },
   colors: {
-    canvas: "#090b0d",
-    ink: "#111416",
-    bone: "#f5f4ef",
-    ember: "#c9c9c3",
+    canvas: "#f0eada",
+    ink: "#56352d",
+    bone: "#f9f6f0",
+    ember: "#b4d3b2",
   },
 } as const;
 

@@ -1,7 +1,7 @@
-import { LoginForm } from "./form";
+﻿import { LoginForm } from "./form";
 
 export const metadata = {
-  title: "Login — Nocturne Studio",
+  title: "Login â€” Baundule",
 };
 
 export default function LoginPage() {

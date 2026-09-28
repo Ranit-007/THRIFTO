@@ -1,5 +1,5 @@
-export const metadata = {
-  title: "Orders — Nocturne Studio",
+﻿export const metadata = {
+  title: "Orders â€” Baundule",
 };
 
 export default function OrdersPage() {

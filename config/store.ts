@@ -3,6 +3,7 @@ export const store = {
   shipping: {
     // Cart prices are stored in paise, so this represents ₹3,000.
     freeThreshold: 300_000,
+    flatRate: 15_000, // ₹150 standard shipping below threshold
   },
   promotion: {
     eyebrow: "05 / LIMITED DROP",
@@ -15,6 +16,6 @@ export const store = {
     title: "Join the drop.",
     description: "Early access to new releases, studio notes and members-only editions.",
     disclaimer:
-      "Newsletter delivery will be connected to your provider in a later phase. No address is stored in this demo.",
+      "Newsletter delivery will be connected to your provider in a later phase.",
   },
 } as const;

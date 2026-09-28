@@ -149,9 +149,9 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                     <Link href="/cart" className="button button--outline cart-drawer__view-bag" onClick={onClose}>
                       VIEW BAG <ArrowRight aria-hidden="true" size={16} />
                     </Link>
-                    <button type="button" className="button button--dark cart-drawer__checkout" disabled>
-                      CHECKOUT — COMING SOON
-                    </button>
+                    <Link href="/checkout" className="button button--dark cart-drawer__checkout block text-center" onClick={onClose}>
+                      PROCEED TO CHECKOUT
+                    </Link>
                   </div>
                 </footer>
               </>

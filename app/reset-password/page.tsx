@@ -1,8 +1,8 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 
 export const metadata = {
-  title: "Reset Password — Nocturne Studio",
+  title: "Reset Password â€” Baundule",
 };
 
 export default function ResetPasswordPage() {
