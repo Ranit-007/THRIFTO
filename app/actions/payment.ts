@@ -60,7 +60,15 @@ export async function verifyPayment(
     // Update order status to PAID
     await prisma.order.update({
       where: { id: payment.orderId },
-      data: { status: "PAID" },
+      data: { 
+        status: "PAID",
+        statusHistory: {
+          create: {
+            status: "PAID",
+            note: "Payment successfully captured",
+          }
+        }
+      }
     });
 
     return { success: true, orderId: payment.orderId };

@@ -1,15 +1,17 @@
-# Graph Report - tshirt  (2026-09-19)
+# Graph Report - tshirt  (2026-09-28)
 
 ## Corpus Check
-- cluster-only mode — file stats not available
+- 93 files · ~1,050,703 words
+- Verdict: corpus is large enough that graph structure adds value.
+- Unclassified: 6 file(s) not represented in the graph (top: .graphify-bak 1, .example 1, (none) 1)
 
 ## Summary
-- 248 nodes · 469 edges · 11 communities (9 shown, 2 thin omitted)
-- Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS · INFERRED: 1 edges (avg confidence: 0.85)
+- 401 nodes · 831 edges · 17 communities (12 shown, 5 thin omitted)
+- Extraction: 98% EXTRACTED · 2% INFERRED · 0% AMBIGUOUS · INFERRED: 19 edges (avg confidence: 0.92)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `ac696e1b`
+- Built from commit: `2f012f8c`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -18,98 +20,116 @@
 - product-client.tsx
 - package.json
 - navbar.tsx
-- brand.ts
-- product-card.tsx
+- next
+- shop-data.ts
 - compilerOptions
-- CartDrawer.tsx
+- checkout-client.tsx
 - eslint.config.mjs
 - next-env.d.ts
 - postcss.config.mjs
+- auth.actions.ts
+- dependencies
+- razorpay.d.ts
+- orders/page.tsx
+- { GET, POST }
+- ref_lib_utils
 
 ## God Nodes (most connected - your core abstractions)
-1. `lucide-react` - 21 edges
-2. `next` - 20 edges
-3. `react` - 16 edges
-4. `compilerOptions` - 16 edges
-5. `framer-motion` - 12 edges
-6. `Product` - 11 edges
-7. `brand` - 11 edges
-8. `ProductCard()` - 10 edges
-9. `useStore()` - 10 edges
-10. `Collection` - 7 edges
+1. `next` - 39 edges
+2. `lucide-react` - 35 edges
+3. `auth` - 25 edges
+4. `react` - 25 edges
+5. `useStore()` - 18 edges
+6. `compilerOptions` - 16 edges
+7. `useToast()` - 14 edges
+8. `formatPrice()` - 13 edges
+9. `Product` - 13 edges
+10. `prisma` - 12 edges
 
 ## Surprising Connections (you probably didn't know these)
-- `ProductDetailClientProps` --references--> `Product`  [EXTRACTED]
-  app/product/[slug]/product-client.tsx → types/store.ts
-- `ProductDetailClient()` --calls--> `useStore()`  [EXTRACTED]
-  app/product/[slug]/product-client.tsx → components/providers/store-provider.tsx
-- `CollectionClientProps` --references--> `Collection`  [EXTRACTED]
-  app/collection/[slug]/collection-client.tsx → types/store.ts
-- `CollectionClientProps` --references--> `Product`  [EXTRACTED]
-  app/collection/[slug]/collection-client.tsx → types/store.ts
-- `ShopClientProps` --references--> `Collection`  [EXTRACTED]
-  app/shop/shop-client.tsx → types/store.ts
+- `State management` --references--> `useToast()`  [INFERRED]
+  CLAUDE.md → components/providers/toast-provider.tsx
+- `State management` --references--> `StoreProvider()`  [INFERRED]
+  CLAUDE.md → components/providers/store-provider.tsx
+- `State management` --references--> `useStore()`  [INFERRED]
+  CLAUDE.md → components/providers/store-provider.tsx
+- `State management` --references--> `ToastProvider()`  [INFERRED]
+  CLAUDE.md → components/providers/toast-provider.tsx
+- `Types` --references--> `formatPrice()`  [INFERRED]
+  CLAUDE.md → config/brand.ts
 
 ## Import Cycles
 - None detected.
 
-## Communities (11 total, 2 thin omitted)
+## Communities (17 total, 5 thin omitted)
 
 ### Community 0 - "homepage.tsx"
 Cohesion: 0.08
-Nodes (19): metadata, Homepage(), Newsletter(), ArrowLink(), ArrowLinkProps, Reveal(), SectionHeading(), SectionHeadingProps (+11 more)
+Nodes (19): HeroSlider(), Homepage(), Newsletter(), ArrowLink(), ArrowLinkProps, Reveal(), SectionHeading(), SectionHeadingProps (+11 more)
 
 ### Community 1 - "product-client.tsx"
-Cohesion: 0.12
-Nodes (27): ProductDetailClient(), ColorSelector(), ColorSelectorProps, DeliveryEstimator(), DeliveryEstimatorProps, ProductAccordion(), ProductAccordionProps, ProductGallery() (+19 more)
+Cohesion: 0.11
+Nodes (29): ProfileForm(), ProductDetailClient(), ColorSelector(), ColorSelectorProps, DeliveryEstimator(), DeliveryEstimatorProps, ProductAccordion(), ProductAccordionProps (+21 more)
 
 ### Community 2 - "package.json"
-Cohesion: 0.05
-Nodes (36): dependencies, framer-motion, lucide-react, next, react, react-dom, devDependencies, autoprefixer (+28 more)
+Cohesion: 0.06
+Nodes (33): devDependencies, autoprefixer, eslint, eslint-config-next, postcss, tailwindcss, @types/bcryptjs, @types/node (+25 more)
 
 ### Community 3 - "navbar.tsx"
-Cohesion: 0.09
-Nodes (18): app_globals, metadata, viewport, components_cart_cartdrawer_cartdrawer, ToastProvider(), Footer(), Logo(), LogoProps (+10 more)
+Cohesion: 0.07
+Nodes (23): app_globals, metadata, RootLayout(), viewport, PageKey, pages, generateMetadata(), ProductPage() (+15 more)
 
-### Community 4 - "brand.ts"
-Cohesion: 0.09
-Nodes (13): CollectionPageProps, PageKey, pages, generateMetadata(), ProductPage(), ProductPageProps, metadata, metadata (+5 more)
+### Community 4 - "next"
+Cohesion: 0.05
+Nodes (45): EditAddressPage(), metadata, AddressList(), metadata, AddressesPage(), metadata, AccountLayout(), AccountPage() (+37 more)
 
-### Community 5 - "product-card.tsx"
-Cohesion: 0.13
-Nodes (17): CollectionClient(), CollectionClientProps, SORT_OPTIONS, SortOption, ProductDetailClientProps, CATEGORIES, ShopClientProps, SORT_OPTIONS (+9 more)
+### Community 5 - "shop-data.ts"
+Cohesion: 0.07
+Nodes (33): CollectionClient(), CollectionClientProps, SORT_OPTIONS, SortOption, CollectionPageProps, ProductDetailClientProps, metadata, CATEGORIES (+25 more)
 
 ### Community 6 - "compilerOptions"
 Cohesion: 0.11
 Nodes (18): compilerOptions, allowJs, esModuleInterop, incremental, isolatedModules, jsx, lib, module (+10 more)
 
-### Community 7 - "CartDrawer.tsx"
-Cohesion: 0.26
-Nodes (10): CartDrawerProps, CartItem(), CartItemProps, CartItem, StoreContext, StoreContextType, StoreProvider(), useStore() (+2 more)
+### Community 7 - "checkout-client.tsx"
+Cohesion: 0.13
+Nodes (24): verifyPayment(), VerifyPaymentInput, CartPage(), CheckoutClient(), CheckoutClientProps, CheckoutSuccessPage(), State management, CartDrawer() (+16 more)
 
 ### Community 8 - "eslint.config.mjs"
 Cohesion: 0.25
 Nodes (7): compat, __dirname, eslintConfig, __filename, ref_eslint_eslintrc, ref_path, ref_url
 
+### Community 11 - "auth.actions.ts"
+Cohesion: 0.08
+Nodes (20): ForgotPasswordForm(), metadata, LoginForm(), metadata, RegisterForm(), metadata, authConfig, signIn (+12 more)
+
+### Community 12 - "dependencies"
+Cohesion: 0.15
+Nodes (13): dependencies, @auth/prisma-adapter, bcryptjs, framer-motion, lucide-react, next, next-auth, prisma (+5 more)
+
+### Community 13 - "razorpay.d.ts"
+Cohesion: 0.50
+Nodes (3): RazorpayFailedResponse, RazorpaySuccessResponse, Window
+
 ## Knowledge Gaps
-- **92 isolated node(s):** `ArrowLinkProps`, `SectionHeadingProps`, `ColorSelectorProps`, `DeliveryEstimatorProps`, `ProductAccordionProps` (+87 more)
-  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 135 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
-- **2 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **141 isolated node(s):** `pages`, `PageKey`, `metadata`, `metadata`, `metadata` (+136 more)
+  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 190 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
+- **5 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `next` connect `navbar.tsx` to `homepage.tsx`, `product-client.tsx`, `package.json`, `brand.ts`, `product-card.tsx`, `CartDrawer.tsx`?**
-  _High betweenness centrality (0.188) - this node is a cross-community bridge._
-- **Why does `lucide-react` connect `product-client.tsx` to `homepage.tsx`, `package.json`, `navbar.tsx`, `brand.ts`, `product-card.tsx`, `CartDrawer.tsx`?**
-  _High betweenness centrality (0.132) - this node is a cross-community bridge._
-- **What connects `ArrowLinkProps`, `SectionHeadingProps`, `ColorSelectorProps` to the rest of the system?**
-  _92 weakly-connected nodes found - possible documentation gaps or missing edges._
+- **Why does `next` connect `next` to `homepage.tsx`, `product-client.tsx`, `package.json`, `navbar.tsx`, `shop-data.ts`, `checkout-client.tsx`, `auth.actions.ts`?**
+  _High betweenness centrality (0.234) - this node is a cross-community bridge._
+- **Why does `lucide-react` connect `product-client.tsx` to `homepage.tsx`, `package.json`, `navbar.tsx`, `next`, `shop-data.ts`, `checkout-client.tsx`, `auth.actions.ts`?**
+  _High betweenness centrality (0.137) - this node is a cross-community bridge._
+- **Why does `react` connect `product-client.tsx` to `homepage.tsx`, `package.json`, `navbar.tsx`, `next`, `shop-data.ts`, `checkout-client.tsx`, `auth.actions.ts`?**
+  _High betweenness centrality (0.069) - this node is a cross-community bridge._
+- **What connects `pages`, `PageKey`, `metadata` to the rest of the system?**
+  _141 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `homepage.tsx` be split into smaller, more focused modules?**
-  _Cohesion score 0.07557354925775979 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.08258258258258258 - nodes in this community are weakly interconnected._
 - **Should `product-client.tsx` be split into smaller, more focused modules?**
-  _Cohesion score 0.12280701754385964 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.11498257839721254 - nodes in this community are weakly interconnected._
 - **Should `package.json` be split into smaller, more focused modules?**
-  _Cohesion score 0.05263157894736842 - nodes in this community are weakly interconnected._
-- **Should `navbar.tsx` be split into smaller, more focused modules?**
-  _Cohesion score 0.08669354838709678 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.05714285714285714 - nodes in this community are weakly interconnected._

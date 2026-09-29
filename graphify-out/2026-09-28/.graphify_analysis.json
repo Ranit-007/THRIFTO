@@ -1,0 +1,433 @@
+{
+  "communities": {
+    "0": [
+      "app_page",
+      "app_page_home",
+      "app_size_guide_page",
+      "app_size_guide_page_metadata",
+      "app_size_guide_page_sizeguidepage",
+      "components_home_homepage",
+      "components_home_homepage_bestsellers",
+      "components_home_homepage_brandstory",
+      "components_home_homepage_collections",
+      "components_home_homepage_hero",
+      "components_home_homepage_homepage",
+      "components_home_homepage_latestdrop",
+      "components_home_homepage_promotion",
+      "components_home_homepage_social",
+      "components_site_newsletter",
+      "components_site_newsletter_newsletter",
+      "components_site_newsletter_newsletter_handlesubmit",
+      "components_ui_arrow_link",
+      "components_ui_arrow_link_arrowlink",
+      "components_ui_arrow_link_arrowlinkprops",
+      "components_ui_reveal",
+      "components_ui_reveal_reveal",
+      "components_ui_section_heading",
+      "components_ui_section_heading_sectionheading",
+      "components_ui_section_heading_sectionheadingprops",
+      "config_store",
+      "config_store_store",
+      "lib_catalog",
+      "lib_catalog_allproducts",
+      "lib_catalog_bestsellers",
+      "lib_catalog_collections",
+      "lib_catalog_getproductbyslug",
+      "lib_catalog_heroimage",
+      "lib_catalog_images",
+      "lib_catalog_latestproducts",
+      "lib_catalog_promotionimage",
+      "lib_catalog_socialposts",
+      "lib_catalog_storyimage",
+      "lib_shop_data_tshirt_size_guide"
+    ],
+    "1": [
+      "app_product_slug_product_client",
+      "app_product_slug_product_client_productdetailclient",
+      "components_product_color_selector",
+      "components_product_color_selector_colorselector",
+      "components_product_color_selector_colorselectorprops",
+      "components_product_delivery_estimator",
+      "components_product_delivery_estimator_deliveryestimator",
+      "components_product_delivery_estimator_deliveryestimatorprops",
+      "components_product_index",
+      "components_product_product_accordion",
+      "components_product_product_accordion_productaccordion",
+      "components_product_product_accordion_productaccordionprops",
+      "components_product_product_gallery",
+      "components_product_product_gallery_productgallery",
+      "components_product_product_gallery_productgalleryprops",
+      "components_product_product_lightbox",
+      "components_product_product_lightbox_productlightbox",
+      "components_product_product_lightbox_productlightboxprops",
+      "components_product_quantity_selector",
+      "components_product_quantity_selector_quantityselector",
+      "components_product_quantity_selector_quantityselectorprops",
+      "components_product_recently_viewed",
+      "components_product_recently_viewed_recentlyviewed",
+      "components_product_recently_viewed_recentlyviewedprops",
+      "components_product_recently_viewed_trackrecentlyviewed",
+      "components_product_size_guide",
+      "components_product_size_guide_sizeguide",
+      "components_product_size_guide_sizeguideprops",
+      "components_product_size_selector",
+      "components_product_size_selector_sizeselector",
+      "components_product_size_selector_sizeselectorprops",
+      "components_providers_toast_provider",
+      "components_providers_toast_provider_toast",
+      "components_providers_toast_provider_toastcontext",
+      "components_providers_toast_provider_toastcontexttype",
+      "components_providers_toast_provider_usetoast",
+      "ref_framer_motion",
+      "ref_lucide_react",
+      "ref_react"
+    ],
+    "2": [
+      "package",
+      "package_dependencies",
+      "package_dependencies_framer_motion",
+      "package_dependencies_lucide_react",
+      "package_dependencies_next",
+      "package_dependencies_react",
+      "package_dependencies_react_dom",
+      "package_devdependencies",
+      "package_devdependencies_autoprefixer",
+      "package_devdependencies_eslint",
+      "package_devdependencies_eslint_config_next",
+      "package_devdependencies_postcss",
+      "package_devdependencies_tailwindcss",
+      "package_devdependencies_types_node",
+      "package_devdependencies_types_react",
+      "package_devdependencies_types_react_dom",
+      "package_devdependencies_typescript",
+      "package_name",
+      "package_private",
+      "package_scripts",
+      "package_scripts_build",
+      "package_scripts_dev",
+      "package_scripts_lint",
+      "package_scripts_start",
+      "package_scripts_typecheck",
+      "package_version",
+      "ref_autoprefixer",
+      "ref_eslint",
+      "ref_eslint_config_next",
+      "ref_postcss",
+      "ref_react_dom",
+      "ref_tailwindcss",
+      "ref_types_node",
+      "ref_types_react",
+      "ref_types_react_dom",
+      "ref_typescript",
+      "tailwind_config",
+      "tailwind_config_config"
+    ],
+    "3": [
+      "app_globals",
+      "app_layout",
+      "app_layout_metadata",
+      "app_layout_rootlayout",
+      "app_layout_viewport",
+      "components_cart_cartdrawer_cartdrawer",
+      "components_providers_toast_provider_toastprovider",
+      "components_providers_toast_provider_toastprovider_addtoast",
+      "components_providers_toast_provider_toastprovider_removetoast",
+      "components_site_footer",
+      "components_site_footer_footer",
+      "components_site_footer_footercolumn",
+      "components_site_logo",
+      "components_site_logo_logo",
+      "components_site_logo_logoprops",
+      "components_site_navbar",
+      "components_site_navbar_featurepanel",
+      "components_site_navbar_headeraction",
+      "components_site_navbar_isactive",
+      "components_site_navbar_navbar",
+      "components_site_navbar_navbar_openpanel",
+      "components_site_navbar_panel",
+      "components_site_navbar_searchpanel",
+      "components_site_navbar_searchpanel_handlekeydown",
+      "config_navigation",
+      "config_navigation_footernavigation",
+      "config_navigation_mobilenavigation",
+      "config_navigation_primarynavigation",
+      "lib_catalog_products",
+      "next_config",
+      "next_config_nextconfig",
+      "ref_next"
+    ],
+    "4": [
+      "app_collection_slug_page",
+      "app_collection_slug_page_collectionpage",
+      "app_collection_slug_page_collectionpageprops",
+      "app_collection_slug_page_generatemetadata",
+      "app_collection_slug_page_generatestaticparams",
+      "app_page_page",
+      "app_page_page_generatemetadata",
+      "app_page_page_generatestaticparams",
+      "app_page_page_pagekey",
+      "app_page_page_pages",
+      "app_page_page_storefrontplaceholderpage",
+      "app_product_slug_page",
+      "app_product_slug_page_generatemetadata",
+      "app_product_slug_page_generatestaticparams",
+      "app_product_slug_page_productpage",
+      "app_product_slug_page_productpageprops",
+      "app_search_page",
+      "app_search_page_metadata",
+      "app_search_page_searchpage",
+      "app_shop_page",
+      "app_shop_page_metadata",
+      "app_shop_page_shopclientwrapper",
+      "app_shop_page_shoppage",
+      "app_shop_shop_client_shopclient",
+      "config_brand",
+      "config_brand_brand",
+      "lib_shop_data_collections",
+      "lib_shop_data_getproductbyslug",
+      "lib_shop_data_productswithvariants"
+    ],
+    "5": [
+      "app_collection_slug_collection_client",
+      "app_collection_slug_collection_client_collectionclient",
+      "app_collection_slug_collection_client_collectionclientprops",
+      "app_collection_slug_collection_client_sort_options",
+      "app_collection_slug_collection_client_sortoption",
+      "app_product_slug_product_client_productdetailclientprops",
+      "app_shop_shop_client",
+      "app_shop_shop_client_categories",
+      "app_shop_shop_client_filterdrawer",
+      "app_shop_shop_client_shopclientprops",
+      "app_shop_shop_client_sort_options",
+      "app_shop_shop_client_sortoption",
+      "components_ui_product_card",
+      "components_ui_product_card_productcard",
+      "components_ui_product_card_productcard_handleaddtocart",
+      "components_ui_product_card_productcardprops",
+      "config_brand_formatprice",
+      "lib_shop_data",
+      "lib_shop_data_createvariantdata",
+      "lib_shop_data_getproductsbycategory",
+      "lib_shop_data_getproductsbycollection",
+      "types_store",
+      "types_store_collection",
+      "types_store_product",
+      "types_store_productvariant",
+      "types_store_sizeguidemeasurement",
+      "types_store_socialpost"
+    ],
+    "6": [
+      "tsconfig",
+      "tsconfig_compileroptions",
+      "tsconfig_compileroptions_allowjs",
+      "tsconfig_compileroptions_esmoduleinterop",
+      "tsconfig_compileroptions_incremental",
+      "tsconfig_compileroptions_isolatedmodules",
+      "tsconfig_compileroptions_jsx",
+      "tsconfig_compileroptions_lib",
+      "tsconfig_compileroptions_module",
+      "tsconfig_compileroptions_moduleresolution",
+      "tsconfig_compileroptions_noemit",
+      "tsconfig_compileroptions_paths",
+      "tsconfig_compileroptions_plugins",
+      "tsconfig_compileroptions_resolvejsonmodule",
+      "tsconfig_compileroptions_skiplibcheck",
+      "tsconfig_compileroptions_strict",
+      "tsconfig_compileroptions_target",
+      "tsconfig_exclude",
+      "tsconfig_include"
+    ],
+    "7": [
+      "components_cart_cartdrawer",
+      "components_cart_cartdrawer_cartdrawerprops",
+      "components_cart_cartitem",
+      "components_cart_cartitem_cartitem",
+      "components_cart_cartitem_cartitemprops",
+      "components_providers_store_provider",
+      "components_providers_store_provider_cartitem",
+      "components_providers_store_provider_storecontext",
+      "components_providers_store_provider_storecontexttype",
+      "components_providers_store_provider_storeprovider",
+      "components_providers_store_provider_usestore",
+      "components_providers_store_provider_wishlistitem",
+      "ref_lib_utils"
+    ],
+    "8": [
+      "eslint_config",
+      "eslint_config_compat",
+      "eslint_config_dirname",
+      "eslint_config_eslintconfig",
+      "eslint_config_filename",
+      "ref_eslint_eslintrc",
+      "ref_path",
+      "ref_url"
+    ],
+    "9": [
+      "next_env_d",
+      "next_env_d_rationale_5"
+    ],
+    "10": [
+      "postcss_config",
+      "postcss_config_config"
+    ]
+  },
+  "cohesion": {
+    "0": 0.07557354925775979,
+    "1": 0.12280701754385964,
+    "2": 0.05263157894736842,
+    "3": 0.08669354838709678,
+    "4": 0.09359605911330049,
+    "5": 0.12535612535612536,
+    "6": 0.10526315789473684,
+    "7": 0.2564102564102564,
+    "8": 0.25,
+    "9": 1.0,
+    "10": 1.0
+  },
+  "gods": [
+    {
+      "id": "ref_lucide_react",
+      "label": "lucide-react",
+      "degree": 21
+    },
+    {
+      "id": "ref_next",
+      "label": "next",
+      "degree": 20
+    },
+    {
+      "id": "ref_react",
+      "label": "react",
+      "degree": 16
+    },
+    {
+      "id": "tsconfig_compileroptions",
+      "label": "compilerOptions",
+      "degree": 16
+    },
+    {
+      "id": "ref_framer_motion",
+      "label": "framer-motion",
+      "degree": 12
+    },
+    {
+      "id": "types_store_product",
+      "label": "Product",
+      "degree": 11
+    },
+    {
+      "id": "config_brand_brand",
+      "label": "brand",
+      "degree": 11
+    },
+    {
+      "id": "components_ui_product_card_productcard",
+      "label": "ProductCard()",
+      "degree": 10
+    },
+    {
+      "id": "components_providers_store_provider_usestore",
+      "label": "useStore()",
+      "degree": 10
+    },
+    {
+      "id": "types_store_collection",
+      "label": "Collection",
+      "degree": 7
+    }
+  ],
+  "surprises": [
+    {
+      "source": "ProductDetailClientProps",
+      "target": "Product",
+      "source_files": [
+        "app/product/[slug]/product-client.tsx",
+        "types/store.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "references",
+      "why": "connects across different repos/directories; peripheral node `ProductDetailClientProps` unexpectedly reaches hub `Product`"
+    },
+    {
+      "source": "ProductDetailClient()",
+      "target": "useStore()",
+      "source_files": [
+        "app/product/[slug]/product-client.tsx",
+        "components/providers/store-provider.tsx"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "connects across different repos/directories; bridges separate communities"
+    },
+    {
+      "source": "CollectionClientProps",
+      "target": "Collection",
+      "source_files": [
+        "app/collection/[slug]/collection-client.tsx",
+        "types/store.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "references",
+      "why": "connects across different repos/directories"
+    },
+    {
+      "source": "CollectionClientProps",
+      "target": "Product",
+      "source_files": [
+        "app/collection/[slug]/collection-client.tsx",
+        "types/store.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "references",
+      "why": "connects across different repos/directories"
+    },
+    {
+      "source": "ShopClientProps",
+      "target": "Collection",
+      "source_files": [
+        "app/shop/shop-client.tsx",
+        "types/store.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "references",
+      "why": "connects across different repos/directories"
+    }
+  ],
+  "questions": [
+    {
+      "type": "bridge_node",
+      "question": "Why does `next` connect `navbar.tsx` to `homepage.tsx`, `product-client.tsx`, `package.json`, `brand.ts`, `product-card.tsx`, `CartDrawer.tsx`?",
+      "why": "High betweenness centrality (0.188) - this node is a cross-community bridge."
+    },
+    {
+      "type": "bridge_node",
+      "question": "Why does `lucide-react` connect `product-client.tsx` to `homepage.tsx`, `package.json`, `navbar.tsx`, `brand.ts`, `product-card.tsx`, `CartDrawer.tsx`?",
+      "why": "High betweenness centrality (0.132) - this node is a cross-community bridge."
+    },
+    {
+      "type": "isolated_nodes",
+      "question": "What connects `ArrowLinkProps`, `SectionHeadingProps`, `ColorSelectorProps` to the rest of the system?",
+      "why": "92 weakly-connected nodes found - possible documentation gaps or missing edges."
+    },
+    {
+      "type": "low_cohesion",
+      "question": "Should `homepage.tsx` be split into smaller, more focused modules?",
+      "why": "Cohesion score 0.07557354925775979 - nodes in this community are weakly interconnected."
+    },
+    {
+      "type": "low_cohesion",
+      "question": "Should `product-client.tsx` be split into smaller, more focused modules?",
+      "why": "Cohesion score 0.12280701754385964 - nodes in this community are weakly interconnected."
+    },
+    {
+      "type": "low_cohesion",
+      "question": "Should `package.json` be split into smaller, more focused modules?",
+      "why": "Cohesion score 0.05263157894736842 - nodes in this community are weakly interconnected."
+    },
+    {
+      "type": "low_cohesion",
+      "question": "Should `navbar.tsx` be split into smaller, more focused modules?",
+      "why": "Cohesion score 0.08669354838709678 - nodes in this community are weakly interconnected."
+    }
+  ]
+}

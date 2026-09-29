@@ -31,7 +31,7 @@ export default async function CheckoutSuccessPage({
         <p className="eyebrow">Thank you</p>
         <h1 className="text-3xl font-bold mb-4">ORDER CONFIRMED</h1>
         <p className="text-gray-600 mb-8">
-          Your order <strong>#{order.id.slice(0, 8).toUpperCase()}</strong> has been placed successfully.
+          Your order <strong>#{order.orderNumber}</strong> has been placed successfully.
           We&apos;ll send a confirmation email shortly.
         </p>
 
@@ -53,9 +53,11 @@ export default async function CheckoutSuccessPage({
           </div>
         </div>
 
-        <Link href="/account/orders" className="button button--dark w-full mb-4">
-          VIEW ORDER HISTORY
-        </Link>
+        <div className="flex gap-4 mb-4">
+          <Link href={`/account/orders/${order.id}`} className="button button--dark flex-1 text-center justify-center">
+            VIEW ORDER
+          </Link>
+        </div>
         <Link href="/shop" className="text-sm font-bold flex items-center justify-center gap-2 hover:underline">
           CONTINUE SHOPPING <ArrowRight size={14} />
         </Link>

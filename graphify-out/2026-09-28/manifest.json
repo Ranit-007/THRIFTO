@@ -1,0 +1,290 @@
+{
+  ".claude/settings.json": {
+    "mtime": 1789798932.3608587,
+    "seen": 1789800106.146561,
+    "ast_hash": "0521fabbe8da619997f5b85ccd651084",
+    "semantic_hash": "0521fabbe8da619997f5b85ccd651084"
+  },
+  "app/[page]/page.tsx": {
+    "mtime": 1789209261.2413886,
+    "seen": 1789800106.1465657,
+    "ast_hash": "05bc46f5b936b1928a255cf8c1f4dd34",
+    "semantic_hash": "05bc46f5b936b1928a255cf8c1f4dd34"
+  },
+  "app/collection/[slug]/collection-client.tsx": {
+    "mtime": 1789212037.4161768,
+    "seen": 1789800106.1465676,
+    "ast_hash": "a62250d0f087fda7b659ef1fb8dfde0a",
+    "semantic_hash": "a62250d0f087fda7b659ef1fb8dfde0a"
+  },
+  "app/collection/[slug]/page.tsx": {
+    "mtime": 1789211272.807838,
+    "seen": 1789800106.1465688,
+    "ast_hash": "beef4d3ac1e86cba554f1171b15b53f8",
+    "semantic_hash": "beef4d3ac1e86cba554f1171b15b53f8"
+  },
+  "app/layout.tsx": {
+    "mtime": 1789369532.27297,
+    "seen": 1789800106.1465697,
+    "ast_hash": "20871e5012d80497937ab4f189e4e2bc",
+    "semantic_hash": "20871e5012d80497937ab4f189e4e2bc"
+  },
+  "app/page.tsx": {
+    "mtime": 1789111100.849604,
+    "seen": 1789800106.1465704,
+    "ast_hash": "a2cb7e1e286271aba0c0b2f6fb53f710",
+    "semantic_hash": "a2cb7e1e286271aba0c0b2f6fb53f710"
+  },
+  "app/product/[slug]/page.tsx": {
+    "mtime": 1789633436.6498795,
+    "seen": 1789800106.1465716,
+    "ast_hash": "90358807f88d00edf3890725a3ac1065",
+    "semantic_hash": "90358807f88d00edf3890725a3ac1065"
+  },
+  "app/product/[slug]/product-client.tsx": {
+    "mtime": 1789634815.2278388,
+    "seen": 1789800106.1465724,
+    "ast_hash": "dffeba2a8405ec701ce40682486746b1",
+    "semantic_hash": "dffeba2a8405ec701ce40682486746b1"
+  },
+  "app/search/page.tsx": {
+    "mtime": 1789209277.4384131,
+    "seen": 1789800106.146573,
+    "ast_hash": "7d6d6cb13defe82b5c6f9cd2ea51c059",
+    "semantic_hash": "7d6d6cb13defe82b5c6f9cd2ea51c059"
+  },
+  "app/shop/page.tsx": {
+    "mtime": 1789210942.5172222,
+    "seen": 1789800106.1465738,
+    "ast_hash": "b6fea16efb6a23bcbb6f0159077a1bb9",
+    "semantic_hash": "b6fea16efb6a23bcbb6f0159077a1bb9"
+  },
+  "app/shop/shop-client.tsx": {
+    "mtime": 1789213984.943059,
+    "seen": 1789800106.1465745,
+    "ast_hash": "80e6a581ef86b6ddcb9438e3e8a5f6c3",
+    "semantic_hash": "80e6a581ef86b6ddcb9438e3e8a5f6c3"
+  },
+  "app/size-guide/page.tsx": {
+    "mtime": 1789634875.1908677,
+    "seen": 1789800106.1465757,
+    "ast_hash": "e058692185b29489b8defe6744a3f2d7",
+    "semantic_hash": "e058692185b29489b8defe6744a3f2d7"
+  },
+  "components/cart/CartDrawer.tsx": {
+    "mtime": 1789636787.9687245,
+    "seen": 1789800106.1465764,
+    "ast_hash": "4b45e4f48bb6905117cd3db51789f189",
+    "semantic_hash": "4b45e4f48bb6905117cd3db51789f189"
+  },
+  "components/cart/CartItem.tsx": {
+    "mtime": 1789636676.6618237,
+    "seen": 1789800106.1465771,
+    "ast_hash": "93447300a2fccaf81dd2d719e122c7fe",
+    "semantic_hash": "93447300a2fccaf81dd2d719e122c7fe"
+  },
+  "components/home/homepage.tsx": {
+    "mtime": 1789209411.7729037,
+    "seen": 1789800106.146578,
+    "ast_hash": "83727b2e0deb860a0aed494905a9bfee",
+    "semantic_hash": "83727b2e0deb860a0aed494905a9bfee"
+  },
+  "components/product/color-selector.tsx": {
+    "mtime": 1789227473.1995113,
+    "seen": 1789800106.146579,
+    "ast_hash": "72375fe0dfc906d66e25b8abcd3bc619",
+    "semantic_hash": "72375fe0dfc906d66e25b8abcd3bc619"
+  },
+  "components/product/delivery-estimator.tsx": {
+    "mtime": 1789227421.7516234,
+    "seen": 1789800106.1465797,
+    "ast_hash": "7f36b78aaa9f3b3b8e21263eaac03a18",
+    "semantic_hash": "7f36b78aaa9f3b3b8e21263eaac03a18"
+  },
+  "components/product/index.ts": {
+    "mtime": 1789227524.9801824,
+    "seen": 1789800106.1465805,
+    "ast_hash": "15f399639f55d26bb82d6fb39b6c08ea",
+    "semantic_hash": "15f399639f55d26bb82d6fb39b6c08ea"
+  },
+  "components/product/product-accordion.tsx": {
+    "mtime": 1789227422.3266253,
+    "seen": 1789800106.1465812,
+    "ast_hash": "c7a3a4a36d54568c93e755817ec5a531",
+    "semantic_hash": "c7a3a4a36d54568c93e755817ec5a531"
+  },
+  "components/product/product-gallery.tsx": {
+    "mtime": 1789453931.545054,
+    "seen": 1789800106.1465821,
+    "ast_hash": "953cdf270fcf7fa9cbb85a5a7e0a9dc6",
+    "semantic_hash": "953cdf270fcf7fa9cbb85a5a7e0a9dc6"
+  },
+  "components/product/product-lightbox.tsx": {
+    "mtime": 1789453931.545054,
+    "seen": 1789800106.146583,
+    "ast_hash": "f84b5a82c7e401988082725f9d036115",
+    "semantic_hash": "f84b5a82c7e401988082725f9d036115"
+  },
+  "components/product/quantity-selector.tsx": {
+    "mtime": 1789227473.4124432,
+    "seen": 1789800106.1465838,
+    "ast_hash": "1ff28df02c129ea244c73989e5e82b6a",
+    "semantic_hash": "1ff28df02c129ea244c73989e5e82b6a"
+  },
+  "components/product/recently-viewed.tsx": {
+    "mtime": 1789227524.880589,
+    "seen": 1789800106.1465847,
+    "ast_hash": "5a0d52aadd7816e9223bfca146d7971f",
+    "semantic_hash": "5a0d52aadd7816e9223bfca146d7971f"
+  },
+  "components/product/size-guide.tsx": {
+    "mtime": 1789634898.417027,
+    "seen": 1789800106.146586,
+    "ast_hash": "1f5494a62ca90ed9e3a3836fd5861716",
+    "semantic_hash": "1f5494a62ca90ed9e3a3836fd5861716"
+  },
+  "components/product/size-selector.tsx": {
+    "mtime": 1789227473.2899058,
+    "seen": 1789800106.1465867,
+    "ast_hash": "0ae23d15d63e9dd40f49b146e798ad74",
+    "semantic_hash": "0ae23d15d63e9dd40f49b146e798ad74"
+  },
+  "components/providers/store-provider.tsx": {
+    "mtime": 1789453931.545054,
+    "seen": 1789800106.1465874,
+    "ast_hash": "207bf1001bde207a7df2f529a955f006",
+    "semantic_hash": "207bf1001bde207a7df2f529a955f006"
+  },
+  "components/providers/toast-provider.tsx": {
+    "mtime": 1789208959.0979857,
+    "seen": 1789800106.146588,
+    "ast_hash": "2cf2997be5fd2bdd73f24a503a0408b9",
+    "semantic_hash": "2cf2997be5fd2bdd73f24a503a0408b9"
+  },
+  "components/site/footer.tsx": {
+    "mtime": 1789209546.132895,
+    "seen": 1789800106.146589,
+    "ast_hash": "c76b1eb2bcb1151b58efae393826f961",
+    "semantic_hash": "c76b1eb2bcb1151b58efae393826f961"
+  },
+  "components/site/logo.tsx": {
+    "mtime": 1789117520.7208436,
+    "seen": 1789800106.1465898,
+    "ast_hash": "52ef7cf3dd32f5187c5036d795c5f70e",
+    "semantic_hash": "52ef7cf3dd32f5187c5036d795c5f70e"
+  },
+  "components/site/navbar.tsx": {
+    "mtime": 1789636975.334735,
+    "seen": 1789800106.1465905,
+    "ast_hash": "8fb36b0d284f7bba8537572273bbe126",
+    "semantic_hash": "8fb36b0d284f7bba8537572273bbe126"
+  },
+  "components/site/newsletter.tsx": {
+    "mtime": 1789117650.72453,
+    "seen": 1789800106.1465912,
+    "ast_hash": "c33fb64d44b3b203027b5cb4c33082b0",
+    "semantic_hash": "c33fb64d44b3b203027b5cb4c33082b0"
+  },
+  "components/ui/arrow-link.tsx": {
+    "mtime": 1789111018.0015452,
+    "seen": 1789800106.146592,
+    "ast_hash": "bf20c9cb34a301e38769cef64418cbef",
+    "semantic_hash": "bf20c9cb34a301e38769cef64418cbef"
+  },
+  "components/ui/product-card.tsx": {
+    "mtime": 1789539375.5840733,
+    "seen": 1789800106.1465929,
+    "ast_hash": "4bd92c9fd67be7f8526173f9d72ae327",
+    "semantic_hash": "4bd92c9fd67be7f8526173f9d72ae327"
+  },
+  "components/ui/reveal.tsx": {
+    "mtime": 1789117640.238013,
+    "seen": 1789800106.1465936,
+    "ast_hash": "294b737636dd5ad9d00714ac167d724e",
+    "semantic_hash": "294b737636dd5ad9d00714ac167d724e"
+  },
+  "components/ui/section-heading.tsx": {
+    "mtime": 1789111460.2519517,
+    "seen": 1789800106.1465948,
+    "ast_hash": "e4cb3d046fb22ce7f8c3f2fdfe0dbfdf",
+    "semantic_hash": "e4cb3d046fb22ce7f8c3f2fdfe0dbfdf"
+  },
+  "config/brand.ts": {
+    "mtime": 1789294132.9521382,
+    "seen": 1789800106.1465955,
+    "ast_hash": "4950c418b628ad88edd338e68acc5d4c",
+    "semantic_hash": "4950c418b628ad88edd338e68acc5d4c"
+  },
+  "config/navigation.ts": {
+    "mtime": 1789117407.6033828,
+    "seen": 1789800106.1465962,
+    "ast_hash": "5b43341097b6f41fac5982d001210430",
+    "semantic_hash": "5b43341097b6f41fac5982d001210430"
+  },
+  "config/store.ts": {
+    "mtime": 1789453931.1430428,
+    "seen": 1789800106.1465971,
+    "ast_hash": "537d0fbd99fa6b4bec3f93d9c298b3c8",
+    "semantic_hash": "537d0fbd99fa6b4bec3f93d9c298b3c8"
+  },
+  "eslint.config.mjs": {
+    "mtime": 1789111605.5817995,
+    "seen": 1789800106.1465979,
+    "ast_hash": "2fb2e4a1b868db6e6f7d73bafb3f2547",
+    "semantic_hash": "2fb2e4a1b868db6e6f7d73bafb3f2547"
+  },
+  "lib/catalog.ts": {
+    "mtime": 1789295398.3390079,
+    "seen": 1789800106.1465983,
+    "ast_hash": "96a58947cccb4008f59fe11fa9eea83e",
+    "semantic_hash": "96a58947cccb4008f59fe11fa9eea83e"
+  },
+  "lib/shop-data.ts": {
+    "mtime": 1789634917.5268407,
+    "seen": 1789800106.146599,
+    "ast_hash": "9870465c282cf4ef43bf59e84744ce2d",
+    "semantic_hash": "9870465c282cf4ef43bf59e84744ce2d"
+  },
+  "next-env.d.ts": {
+    "mtime": 1789111546.3856933,
+    "seen": 1789800106.1466,
+    "ast_hash": "ba64ff7d54714a8f64db89b1003207d8",
+    "semantic_hash": "ba64ff7d54714a8f64db89b1003207d8"
+  },
+  "next.config.ts": {
+    "mtime": 1789111492.9428458,
+    "seen": 1789800106.1466007,
+    "ast_hash": "edb89f5ff798a90defb441814237b248",
+    "semantic_hash": "edb89f5ff798a90defb441814237b248"
+  },
+  "package.json": {
+    "mtime": 1789110803.502908,
+    "seen": 1789800106.146602,
+    "ast_hash": "30ea20e794862c8563fd3d557ebf6232",
+    "semantic_hash": "30ea20e794862c8563fd3d557ebf6232"
+  },
+  "postcss.config.mjs": {
+    "mtime": 1789110806.003907,
+    "seen": 1789800106.146603,
+    "ast_hash": "d3fd1d29b05a09ff76b595a70e1e7d50",
+    "semantic_hash": "d3fd1d29b05a09ff76b595a70e1e7d50"
+  },
+  "tailwind.config.ts": {
+    "mtime": 1789110807.1209075,
+    "seen": 1789800106.1466038,
+    "ast_hash": "a82b9a6d62138d74ec49b0147d228bdb",
+    "semantic_hash": "a82b9a6d62138d74ec49b0147d228bdb"
+  },
+  "tsconfig.json": {
+    "mtime": 1789110808.5709052,
+    "seen": 1789800106.1466043,
+    "ast_hash": "93db602de359111ffe5b00fb4a32953c",
+    "semantic_hash": "93db602de359111ffe5b00fb4a32953c"
+  },
+  "types/store.ts": {
+    "mtime": 1789453931.541046,
+    "seen": 1789800106.1466053,
+    "ast_hash": "f8b0194c5f3e5baf90c751528785f8f1",
+    "semantic_hash": "f8b0194c5f3e5baf90c751528785f8f1"
+  }
+}

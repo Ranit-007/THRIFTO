@@ -55,7 +55,15 @@ export async function POST(req: Request) {
 
           await prisma.order.update({
             where: { id: payment.orderId },
-            data: { status: "PAID" }
+            data: { 
+        status: "PAID",
+        statusHistory: {
+          create: {
+            status: "PAID",
+            note: "Payment successfully captured",
+          }
+        }
+      }
           });
         }
         break;
@@ -80,7 +88,15 @@ export async function POST(req: Request) {
 
           await prisma.order.update({
             where: { id: payment.orderId },
-            data: { status: "FAILED" }
+            data: { 
+        status: "FAILED",
+        statusHistory: {
+          create: {
+            status: "FAILED",
+            note: "Payment failed",
+          }
+        }
+      }
           });
         }
         break;

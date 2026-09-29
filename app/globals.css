@@ -98,7 +98,7 @@ img { object-fit: cover; }
   width: 100%;
   max-width: none;
   background: rgba(var(--color-canvas), 0.93);
-  box-shadow: 0 1px 0 rgba(var(--color-ink), 0.13);
+  box-shadow: 0 1px 0 rgba(var(--color-ink), 0.13); /*if want a border use - box-shadow: 0 1px 0 rgba(255, 255, 255, 0.08);*/
   backdrop-filter: blur(14px);
 }
 
@@ -336,12 +336,14 @@ img { object-fit: cover; }
 .newsletter__form button:disabled { cursor: wait; opacity: 0.65; }
 .newsletter__spinner { animation: spin 0.8s linear infinite; }
 
-.placeholder-page { position: relative; min-height: 100svh; display: grid; align-items: center; overflow: hidden; background: rgb(var(--color-canvas)); color: rgb(var(--color-ink)); }
+.placeholder-page { position: relative; min-height: 100svh; display: grid; align-items: center; overflow: hidden; background: rgb(var(--color-ink)); color: rgb(var(--color-bone)); }
 .placeholder-page__grid { position: absolute; inset: 0; opacity: 0.18; background-image: linear-gradient(rgba(245, 244, 239, 0.12) 1px, transparent 1px), linear-gradient(90deg, rgba(245, 244, 239, 0.12) 1px, transparent 1px); background-size: 5rem 5rem; mask-image: linear-gradient(to bottom, transparent 3%, black 35%, transparent 90%); }
 .placeholder-page__content { position: relative; max-width: 55rem; padding-top: 7rem; padding-bottom: 5rem; }
-.placeholder-page .eyebrow { color: rgba(var(--color-ink), 0.62); }
+.placeholder-page .eyebrow { color: rgba(var(--color-bone), 0.62); }
 .placeholder-page h1 { max-width: 48rem; margin: 0; font-family: var(--font-sans); font-size: clamp(3.6rem, 9vw, 8.5rem); font-weight: 800; line-height: 0.84; letter-spacing: -0.085em; text-transform: uppercase; }
-.placeholder-page__content > p:not(.eyebrow) { max-width: 33rem; margin: 2rem 0; color: rgba(var(--color-ink), 0.72); font-size: 0.89rem; line-height: 1.7; }
+.placeholder-page__content > p:not(.eyebrow) { max-width: 33rem; margin: 2rem 0; color: rgba(var(--color-bone), 0.72); font-size: 0.89rem; line-height: 1.7; }
+.placeholder-page .button--light { background: rgb(var(--color-bone)); color: rgb(var(--color-ink)); }
+.placeholder-page .button--light:hover { background: rgb(var(--color-canvas)); }
 .product-preview { min-height: 100svh; background: rgb(var(--color-ink)); color: rgb(var(--color-bone)); }
 .product-preview__shell { padding-top: clamp(8rem, 12vw, 11rem); padding-bottom: clamp(4rem, 7vw, 7rem); }
 .product-preview__back { display: inline-flex; align-items: center; gap: 0.45rem; margin-bottom: 2rem; font-size: 0.61rem; font-weight: 800; letter-spacing: 0.09em; text-transform: uppercase; }
@@ -486,8 +488,8 @@ img { object-fit: cover; }
 .shop-page {
   padding-top: calc(30px + 78px);
   min-height: 100vh;
-  background: rgb(var(--color-canvas));
-  color: rgb(var(--color-ink));
+  background: rgb(var(--color-ink));
+  color: rgb(var(--color-bone));
 }
 
 .shop-header {

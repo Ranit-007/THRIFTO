@@ -6,6 +6,7 @@ import { getProductById } from "@/lib/shop-data";
 import { store } from "@/config/store";
 import { razorpay } from "@/lib/razorpay";
 import { z } from "zod";
+import crypto from "crypto";
 
 const CartItemSchema = z.object({
   productId: z.string(),
@@ -148,9 +149,14 @@ export async function createCheckoutOrder(
     }
 
     // Create Order in DB
+    const dateStr = new Date().getFullYear();
+    const randomHex = crypto.randomBytes(3).toString("hex").toUpperCase();
+    const orderNumber = `BAU-${dateStr}-${randomHex}`;
+
     const order = await prisma.order.create({
       data: {
         userId,
+        orderNumber,
         status: "PENDING",
         subtotal,
         shippingAmount,
@@ -175,6 +181,12 @@ export async function createCheckoutOrder(
             totalPrice: item.totalPrice,
             images: item.images,
           })),
+        },
+        statusHistory: {
+          create: {
+            status: "PENDING",
+            note: "Order placed, awaiting payment",
+          },
         },
       },
     });
