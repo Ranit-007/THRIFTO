@@ -36,7 +36,7 @@ export default async function OrdersPage() {
           <p className="text-sm opacity-70 mb-6 font-mono">
             Once you place an order, you&apos;ll find it here.
           </p>
-          <Link href="/shop" className="btn btn--solid">
+          <Link href="/shop" className="button button--dark">
             EXPLORE SHOP
           </Link>
         </div>
