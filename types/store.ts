@@ -3,7 +3,7 @@ export type ProductVariant = {
   size: string;
   color: string;
   colorHex: string;
-  price?: number; // Optional variant-specific price
+  price?: number | null; // Optional variant-specific price
   stock: number;
   sku: string;
   available: boolean;
@@ -15,26 +15,26 @@ export type Product = {
   slug: string;
   name: string;
   description: string;
-  shortDescription?: string;
+  shortDescription?: string | null;
   price: number;
-  compareAtPrice?: number;
+  compareAtPrice?: number | null;
   category: string;
   collection: string;
-  images: [string, ...string[]];
+  images: string[];
   colors: { name: string; hex: string }[];
   sizes: string[];
   variants?: ProductVariant[]; // Optional detailed variant data
-  badge?: string;
+  badge?: string | null;
   stockStatus: "in_stock" | "low_stock" | "sold_out";
   featured: boolean;
   bestSeller: boolean;
   newArrival: boolean;
-  rating?: number;
-  reviewCount?: number;
+  rating?: number | null;
+  reviewCount?: number | null;
   // Phase 4 additions
-  material?: string;
-  gsm?: number;
-  fit?: "Regular Fit" | "Oversized Fit" | "Relaxed Fit" | "Slim Fit" | "Cropped Fit";
+  material?: string | null;
+  gsm?: number | null;
+  fit?: string | null;
   care?: string[];
   tags?: string[];
 };

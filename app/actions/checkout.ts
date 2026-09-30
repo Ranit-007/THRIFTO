@@ -105,7 +105,7 @@ export async function createCheckoutOrder(
     }[] = [];
 
     for (const item of items) {
-      const product = getProductById(item.productId);
+      const product = await getProductById(item.productId);
       if (!product) {
         return { error: `Product with ID "${item.productId}" is not available.` };
       }
@@ -118,7 +118,7 @@ export async function createCheckoutOrder(
             v.size.toLowerCase() === item.size.toLowerCase() &&
             v.color.toLowerCase() === item.color.toLowerCase()
         );
-        if (variant && variant.price) {
+        if (variant && variant.price !== null && variant.price !== undefined) {
           unitPrice = variant.price;
         }
       }

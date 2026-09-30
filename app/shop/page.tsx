@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { ShopClient } from "./shop-client";
-import { productsWithVariants, collections } from "@/lib/shop-data";
+import { getAllProducts, getAllCollections } from "@/lib/shop-data";
 import { brand } from "@/config/brand";
 
 export const metadata: Metadata = {
@@ -26,9 +26,14 @@ async function ShopClientWrapper({
   const category = typeof params.category === "string" ? params.category : undefined;
   const sort = typeof params.sort === "string" ? params.sort : "newest";
 
+  const [products, collections] = await Promise.all([
+    getAllProducts(),
+    getAllCollections()
+  ]);
+
   return (
     <ShopClient
-      initialProducts={productsWithVariants}
+      initialProducts={products}
       initialCollections={collections}
       initialCollection={collection}
       initialCategory={category}

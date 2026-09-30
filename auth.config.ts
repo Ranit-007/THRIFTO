@@ -8,9 +8,18 @@ export const authConfig = {
   callbacks: {
     authorized({ auth, request: { nextUrl } }) {
       const isLoggedIn = !!auth?.user;
+      const isAdminRoute = nextUrl.pathname.startsWith("/admin");
       const isProtectedRoute =
         nextUrl.pathname.startsWith("/account") ||
         nextUrl.pathname.startsWith("/checkout");
+
+      if (isAdminRoute) {
+        if (!isLoggedIn) return false;
+        // Check for admin role
+        if (auth.user?.role === "ADMIN") return true;
+        // Not an admin, redirect to home
+        return Response.redirect(new URL("/", nextUrl));
+      }
 
       if (isProtectedRoute) {
         if (isLoggedIn) return true;

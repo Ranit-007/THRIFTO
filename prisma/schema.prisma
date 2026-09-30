@@ -16,30 +16,30 @@ model User {
   passwordHash  String?
   role          Role      @default(CUSTOMER)
 
-  accounts      Account[]
-  sessions      Session[]
-  addresses     Address[]
-  orders        Order[]
+  accounts  Account[]
+  sessions  Session[]
+  addresses Address[]
+  orders    Order[]
 
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([email])
 }
 
 model Account {
-  id                 String  @id @default(cuid())
-  userId             String
-  type               String
-  provider           String
-  providerAccountId  String
-  refresh_token      String?  @db.Text
-  access_token       String?  @db.Text
-  expires_at         Int?
-  token_type         String?
-  scope              String?
-  id_token           String?  @db.Text
-  session_state      String?
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -63,20 +63,20 @@ model VerificationToken {
 }
 
 model Address {
-  id            String   @id @default(cuid())
-  userId        String
-  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  fullName      String
-  phone         String
-  addressLine1  String
-  addressLine2  String?
-  city          String
-  state         String
-  postalCode    String
-  country       String
-  isDefault     Boolean  @default(false)
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  id           String   @id @default(cuid())
+  userId       String
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  fullName     String
+  phone        String
+  addressLine1 String
+  addressLine2 String?
+  city         String
+  state        String
+  postalCode   String
+  country      String
+  isDefault    Boolean  @default(false)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 
   @@index([userId])
 }
@@ -97,15 +97,15 @@ enum OrderStatus {
 }
 
 model Order {
-  id                   String      @id @default(cuid())
-  orderNumber          String      @unique @default(cuid())
+  id                   String               @id @default(cuid())
+  orderNumber          String               @unique @default(cuid())
   userId               String
-  user                 User        @relation(fields: [userId], references: [id], onDelete: Cascade)
-  status               OrderStatus @default(PENDING)
-  subtotal             Int         // in paise
-  shippingAmount       Int         // in paise
-  totalAmount          Int         // in paise
-  currency             String      @default("INR")
+  user                 User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
+  status               OrderStatus          @default(PENDING)
+  subtotal             Int // in paise
+  shippingAmount       Int // in paise
+  totalAmount          Int // in paise
+  currency             String               @default("INR")
   shippingFullName     String
   shippingPhone        String
   shippingAddressLine1 String
@@ -114,8 +114,8 @@ model Order {
   shippingState        String
   shippingPostalCode   String
   shippingCountry      String
-  createdAt            DateTime    @default(now())
-  updatedAt            DateTime    @updatedAt
+  createdAt            DateTime             @default(now())
+  updatedAt            DateTime             @updatedAt
   orderItems           OrderItem[]
   payments             Payment[]
   statusHistory        OrderStatusHistory[]
@@ -134,9 +134,9 @@ model OrderItem {
   variantSize     String?
   variantColor    String?
   variantColorHex String?
-  unitPrice       Int      // in paise
+  unitPrice       Int // in paise
   quantity        Int
-  totalPrice      Int      // in paise (unitPrice * quantity)
+  totalPrice      Int // in paise (unitPrice * quantity)
   images          String[]
 
   @@index([orderId])
@@ -148,11 +148,11 @@ model Payment {
   order             Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
   provider          String   @default("RAZORPAY")
   providerOrderId   String   @unique // Razorpay order ID
-  providerPaymentId String?  // Razorpay payment ID
-  providerSignature String?  // Razorpay signature
-  amount            Int      // in paise
+  providerPaymentId String? // Razorpay payment ID
+  providerSignature String? // Razorpay signature
+  amount            Int // in paise
   currency          String   @default("INR")
-  status            String   // "created", "captured", "failed"
+  status            String // "created", "captured", "failed"
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt
 
@@ -168,4 +168,97 @@ model OrderStatusHistory {
   createdAt DateTime    @default(now())
 
   @@index([orderId])
+}
+
+model Category {
+  id          String    @id @default(cuid())
+  name        String
+  slug        String    @unique
+  description String?   @db.Text
+  image       String?
+  published   Boolean   @default(true)
+  products    Product[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Collection {
+  id          String    @id @default(cuid())
+  name        String
+  slug        String    @unique
+  description String?   @db.Text
+  image       String?
+  published   Boolean   @default(true)
+  span        String?   @default("standard")
+  products    Product[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Product {
+  id               String  @id @default(cuid())
+  slug             String  @unique
+  name             String
+  description      String  @db.Text
+  shortDescription String? @db.Text
+  price            Int // in paise
+  compareAtPrice   Int? // in paise
+
+  categoryId String?
+  category   Category? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+
+  collectionId String?
+  collection   Collection? @relation(fields: [collectionId], references: [id], onDelete: SetNull)
+
+  images String[]
+  colors Json?
+  sizes  String[]
+
+  badge       String?
+  stockStatus String  @default("in_stock")
+  featured    Boolean @default(false)
+  bestSeller  Boolean @default(false)
+  newArrival  Boolean @default(false)
+
+  rating      Float?
+  reviewCount Int?   @default(0)
+
+  material String?
+  gsm      Int?
+  fit      String?
+  care     String[]
+  tags     String[]
+
+  published Boolean @default(true)
+
+  variants ProductVariant[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([slug])
+  @@index([categoryId])
+  @@index([collectionId])
+}
+
+model ProductVariant {
+  id        String  @id @default(cuid())
+  productId String
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  size     String
+  color    String
+  colorHex String
+
+  price     Int? // specific price in paise, otherwise fallback to product price
+  stock     Int      @default(0)
+  sku       String   @unique
+  available Boolean  @default(true)
+  images    String[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([productId])
+  @@index([sku])
 }
