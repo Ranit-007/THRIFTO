@@ -18,14 +18,41 @@ import { SizeGuide } from "@/components/product/size-guide";
 import { ProductAccordion } from "@/components/product/product-accordion";
 import { DeliveryEstimator } from "@/components/product/delivery-estimator";
 import { RecentlyViewed, trackRecentlyViewed } from "@/components/product/recently-viewed";
+import { ReviewsSection } from "@/components/product/reviews-section";
 import { store } from "@/config/store";
+
+interface Review {
+  id: string;
+  rating: number;
+  title: string | null;
+  comment: string | null;
+  isVerified: boolean;
+  createdAt: Date;
+  user: {
+    name: string | null;
+  };
+  images: Array<{ id: string; url: string }>;
+}
 
 interface ProductDetailClientProps {
   product: Product;
   relatedProducts: Product[];
+  reviews: Review[];
+  reviewStats: {
+    averageRating: number | null;
+    totalReviews: number;
+    ratingDistribution: Record<number, number>;
+  };
+  canReview: boolean;
 }
 
-export function ProductDetailClient({ product, relatedProducts }: ProductDetailClientProps) {
+export function ProductDetailClient({
+  product,
+  relatedProducts,
+  reviews,
+  reviewStats,
+  canReview
+}: ProductDetailClientProps) {
   const shouldReduceMotion = useReducedMotion();
   const { toast } = useToast();
   const { addToCart, toggleWishlist, isInWishlist } = useStore();
@@ -337,6 +364,19 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
               />
             ) : null}
           </div>
+        </div>
+
+        {/* Reviews Section */}
+        <div style={{ marginTop: "4rem", marginBottom: "4rem" }}>
+          <ReviewsSection
+            productId={product.id}
+            productName={product.name}
+            reviews={reviews}
+            averageRating={reviewStats.averageRating}
+            totalReviews={reviewStats.totalReviews}
+            ratingDistribution={reviewStats.ratingDistribution}
+            canReview={canReview}
+          />
         </div>
 
         {/* Related Products */}

@@ -3,6 +3,9 @@ import { notFound } from "next/navigation";
 import { ProductDetailClient } from "./product-client";
 import { getProductBySlug, getAllProducts } from "@/lib/shop-data";
 import { brand } from "@/config/brand";
+import { auth } from "@/auth";
+import { prisma } from "@/lib/prisma";
+import { getProductReviewStats, canUserReviewProduct } from "@/lib/review-service";
 
 interface ProductPageProps {
   params: Promise<{ slug: string }>;
@@ -47,10 +50,32 @@ export default async function ProductPage({ params }: ProductPageProps) {
     relatedProducts = [...relatedProducts, ...additional].slice(0, 4);
   }
 
+  // Fetch reviews and auth data
+  const session = await auth();
+  const userId = session?.user?.id;
+
+  const [reviews, reviewStats, reviewEligibility] = await Promise.all([
+    prisma.review.findMany({
+      where: { productId: product.id, status: "APPROVED" },
+      orderBy: { createdAt: "desc" },
+      include: {
+        user: { select: { name: true } },
+        images: true,
+      },
+    }),
+    getProductReviewStats(product.id),
+    userId
+      ? canUserReviewProduct(userId, product.id)
+      : Promise.resolve({ eligible: false, reason: "You must be logged in to review" }),
+  ]);
+
   return (
     <ProductDetailClient
       product={product}
       relatedProducts={relatedProducts}
+      reviews={reviews}
+      reviewStats={reviewStats}
+      canReview={reviewEligibility.eligible}
     />
   );
 }

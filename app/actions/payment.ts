@@ -3,6 +3,8 @@
 import crypto from "crypto";
 import { prisma } from "@/lib/prisma";
 
+import { recordCouponUsage } from "@/lib/coupon-service";
+
 export type VerifyPaymentInput = {
   razorpay_order_id: string;
   razorpay_payment_id: string;
@@ -40,6 +42,13 @@ export async function verifyPayment(
     // Find the payment record
     const payment = await prisma.payment.findUnique({
       where: { providerOrderId: razorpay_order_id },
+      include: {
+        order: {
+          include: {
+            orderItems: true,
+          }
+        }
+      }
     });
 
     if (!payment) {
@@ -47,25 +56,76 @@ export async function verifyPayment(
       return { success: false, error: "Payment record not found" };
     }
 
-    // Update payment record
-    await prisma.payment.update({
-      where: { id: payment.id },
-      data: {
-        providerPaymentId: razorpay_payment_id,
-        providerSignature: razorpay_signature,
-        status: "captured",
-      },
-    });
+    // Use transaction for atomic operations
+    await prisma.$transaction(async (tx) => {
+      // Update payment record
+      await tx.payment.update({
+        where: { id: payment.id },
+        data: {
+          providerPaymentId: razorpay_payment_id,
+          providerSignature: razorpay_signature,
+          status: "captured",
+        },
+      });
 
-    // Update order status to PAID
-    await prisma.order.update({
-      where: { id: payment.orderId },
-      data: { 
-        status: "PAID",
-        statusHistory: {
-          create: {
-            status: "PAID",
-            note: "Payment successfully captured",
+      // Update order status to PAID
+      await tx.order.update({
+        where: { id: payment.orderId },
+        data: {
+          status: "PAID",
+          statusHistory: {
+            create: {
+              status: "PAID",
+              note: "Payment successfully captured",
+            }
+          }
+        }
+      });
+
+      // Check if inventory already processed (idempotency)
+      const order = await tx.order.findUnique({
+        where: { id: payment.orderId },
+        select: { inventoryProcessedAt: true, couponCode: true },
+      });
+
+      if (order && !order.inventoryProcessedAt) {
+        // Decrement inventory for each order item
+        for (const item of payment.order.orderItems) {
+          if (item.variantId) {
+            // Atomic conditional update
+            const result = await tx.productVariant.updateMany({
+              where: {
+                id: item.variantId,
+                stock: { gte: item.quantity },
+              },
+              data: {
+                stock: { decrement: item.quantity },
+                inventoryUpdatedAt: new Date(),
+              },
+            });
+
+            if (result.count === 0) {
+              console.error(
+                `Insufficient stock for variant ${item.variantId} during inventory decrement`
+              );
+            }
+          }
+        }
+
+        // Mark inventory as processed
+        await tx.order.update({
+          where: { id: payment.orderId },
+          data: { inventoryProcessedAt: new Date() },
+        });
+
+        // Record coupon usage if applicable
+        if (order.couponCode) {
+          const coupon = await tx.coupon.findUnique({
+            where: { code: order.couponCode },
+          });
+
+          if (coupon) {
+            await recordCouponUsage(tx, coupon.id, payment.order.userId, payment.orderId);
           }
         }
       }

@@ -7,7 +7,7 @@ import Image from "next/image";
 import { ArrowRight, Loader2 } from "lucide-react";
 import { useStore } from "@/components/providers/store-provider";
 import { useToast } from "@/components/providers/toast-provider";
-import { createCheckoutOrder } from "@/app/actions/checkout";
+import { createCheckoutOrder, validateCouponAction } from "@/app/actions/checkout";
 import { verifyPayment } from "@/app/actions/payment";
 import { formatPrice } from "@/lib/utils";
 import { store } from "@/config/store";
@@ -37,10 +37,15 @@ export default function CheckoutClient({ savedAddresses }: CheckoutClientProps) 
     country: "India",
   });
 
+  const [couponCode, setCouponCode] = useState("");
+  const [appliedCoupon, setAppliedCoupon] = useState<string | null>(null);
+  const [discountAmount, setDiscountAmount] = useState<number>(0);
+  const [isApplyingCoupon, setIsApplyingCoupon] = useState(false);
+
   // Calculate totals client side for display ONLY (server computes truth)
   const subtotal = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
   const shipping = subtotal >= store.shipping.freeThreshold ? 0 : store.shipping.flatRate;
-  const total = subtotal + shipping;
+  const total = subtotal - discountAmount + shipping;
 
   useEffect(() => {
     // If the cart is empty and store is ready, redirect to cart or shop
@@ -58,6 +63,43 @@ export default function CheckoutClient({ savedAddresses }: CheckoutClientProps) 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleApplyCoupon = async () => {
+    if (!couponCode.trim()) return;
+
+    setIsApplyingCoupon(true);
+    try {
+      const res = await validateCouponAction(
+        couponCode,
+        cartItems.map((i) => ({
+          productId: i.productId,
+          size: i.size,
+          color: i.color,
+          quantity: i.quantity,
+        }))
+      );
+
+      if (res.success && res.discount !== undefined) {
+        setAppliedCoupon(res.code || couponCode);
+        setDiscountAmount(res.discount);
+        toast({ title: `Coupon applied! Saved ${formatPrice(res.discount)}`, type: "success" });
+      } else {
+        toast({ title: res.error || "Failed to apply coupon", type: "error" });
+        setAppliedCoupon(null);
+        setDiscountAmount(0);
+      }
+    } catch (err: unknown) {
+      toast({ title: "An error occurred while applying the coupon", type: "error" });
+    } finally {
+      setIsApplyingCoupon(false);
+    }
+  };
+
+  const handleRemoveCoupon = () => {
+    setAppliedCoupon(null);
+    setDiscountAmount(0);
+    setCouponCode("");
   };
 
   const handleCheckout = async (e: React.FormEvent) => {
@@ -89,6 +131,7 @@ export default function CheckoutClient({ savedAddresses }: CheckoutClientProps) 
             ? null
             : formData,
         addressId: selectedAddressId !== "new" ? selectedAddressId : undefined,
+        couponCode: appliedCoupon || undefined,
       });
 
       if (orderResponse.error) {
@@ -357,6 +400,54 @@ export default function CheckoutClient({ savedAddresses }: CheckoutClientProps) 
                 <span>Shipping</span>
                 <span>{shipping === 0 ? "FREE" : formatPrice(shipping)}</span>
               </div>
+
+              {appliedCoupon ? (
+                <div className="flex justify-between text-green-700">
+                  <div className="flex items-center gap-2">
+                    <span>Discount (Coupon: {appliedCoupon})</span>
+                    <button
+                      type="button"
+                      onClick={handleRemoveCoupon}
+                      className="text-xs text-red-600 hover:underline"
+                    >
+                      Remove
+                    </button>
+                  </div>
+                  <span>-{formatPrice(discountAmount)}</span>
+                </div>
+              ) : (
+                <div className="pt-2 pb-2">
+                  <div className="flex gap-2">
+                    <input
+                      type="text"
+                      placeholder="Discount code"
+                      className="flex-1 px-3 py-2 border rounded-sm outline-none text-sm uppercase"
+                      value={couponCode}
+                      onChange={(e) => setCouponCode(e.target.value.toUpperCase())}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                          e.preventDefault();
+                          handleApplyCoupon();
+                        }
+                      }}
+                      disabled={isApplyingCoupon}
+                    />
+                    <button
+                      type="button"
+                      className="px-4 py-2 bg-gray-200 text-sm font-medium hover:bg-gray-300 disabled:opacity-50 transition-colors rounded-sm"
+                      onClick={handleApplyCoupon}
+                      disabled={!couponCode.trim() || isApplyingCoupon}
+                    >
+                      {isApplyingCoupon ? (
+                        <Loader2 size={16} className="animate-spin" />
+                      ) : (
+                        "Apply"
+                      )}
+                    </button>
+                  </div>
+                </div>
+              )}
+
               <div className="flex justify-between font-bold text-lg pt-4">
                 <span>TOTAL</span>
                 <span>{formatPrice(total)}</span>

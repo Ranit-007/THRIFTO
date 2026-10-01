@@ -51,6 +51,77 @@ export type CheckoutState = {
   couponCode?: string;
 };
 
+export async function validateCouponAction(
+  code: string,
+  items: z.infer<typeof CartItemSchema>[]
+): Promise<{ success: boolean; discount?: number; error?: string; code?: string }> {
+  try {
+    const session = await auth();
+    if (!session?.user?.id) {
+      return { success: false, error: "Authentication required to apply a coupon" };
+    }
+    const userId = session.user.id;
+
+    if (!items || items.length === 0) {
+      return { success: false, error: "Cart is empty" };
+    }
+
+    let subtotal = 0;
+    const productIds: string[] = [];
+    const categoryIds: string[] = [];
+
+    for (const item of items) {
+      const product = await getProductById(item.productId);
+      if (!product) continue;
+
+      productIds.push(product.id);
+      if (product.category) {
+        const categoryRecord = await prisma.category.findFirst({
+          where: { name: product.category },
+          select: { id: true },
+        });
+        if (categoryRecord && !categoryIds.includes(categoryRecord.id)) {
+          categoryIds.push(categoryRecord.id);
+        }
+      }
+
+      let unitPrice = product.price;
+      if (product.variants && product.variants.length > 0) {
+        const variant = product.variants.find(
+          (v) =>
+            v.size.toLowerCase() === item.size.toLowerCase() &&
+            v.color.toLowerCase() === item.color.toLowerCase()
+        );
+        if (variant && variant.price !== null && variant.price !== undefined) {
+          unitPrice = variant.price;
+        }
+      }
+      subtotal += unitPrice * item.quantity;
+    }
+
+    const couponResult = await validateCoupon(
+      code,
+      userId,
+      subtotal,
+      productIds,
+      categoryIds
+    );
+
+    if (!couponResult.valid) {
+      return { success: false, error: couponResult.error };
+    }
+
+    return {
+      success: true,
+      discount: couponResult.discount,
+      code: couponResult.coupon.code,
+    };
+  } catch (error: unknown) {
+    console.error("Error validating coupon:", error);
+    return { success: false, error: "Failed to validate coupon" };
+  }
+}
+
 export async function createCheckoutOrder(
   data: z.infer<typeof CreateOrderInputSchema>
 ): Promise<CheckoutState> {
