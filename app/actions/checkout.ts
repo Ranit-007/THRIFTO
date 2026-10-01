@@ -5,6 +5,7 @@ import { prisma } from "@/lib/prisma";
 import { getProductById } from "@/lib/shop-data";
 import { store } from "@/config/store";
 import { razorpay } from "@/lib/razorpay";
+import { validateCoupon } from "@/lib/coupon-service";
 import { z } from "zod";
 import crypto from "crypto";
 
@@ -30,6 +31,7 @@ const CreateOrderInputSchema = z.object({
   items: z.array(CartItemSchema).min(1, "Cart cannot be empty"),
   shippingAddress: CheckoutAddressSchema.nullable().optional(),
   addressId: z.string().optional(),
+  couponCode: z.string().optional(),
 });
 
 export type CheckoutState = {
@@ -45,6 +47,8 @@ export type CheckoutState = {
     email: string;
     phone: string;
   };
+  discount?: number;
+  couponCode?: string;
 };
 
 export async function createCheckoutOrder(
@@ -63,7 +67,7 @@ export async function createCheckoutOrder(
       return { error: parsed.error.issues[0]?.message || "Invalid input data" };
     }
 
-    const { items, shippingAddress, addressId } = parsed.data;
+    const { items, shippingAddress, addressId, couponCode } = parsed.data;
 
     // Must have either an existing address or a new address
     if (!addressId && !shippingAddress) {
@@ -91,11 +95,12 @@ export async function createCheckoutOrder(
       };
     }
 
-    // Strictly validate items and compute subtotal on the server
+    // Strictly validate items, check inventory, and compute subtotal on the server
     let subtotal = 0;
     const validatedItems: {
       productId: string;
       productName: string;
+      variantId: string;
       variantSize: string;
       variantColor: string;
       unitPrice: number;
@@ -104,21 +109,64 @@ export async function createCheckoutOrder(
       images: string[];
     }[] = [];
 
+    const productIds: string[] = [];
+    const categoryIds: string[] = [];
+
     for (const item of items) {
       const product = await getProductById(item.productId);
       if (!product) {
         return { error: `Product with ID "${item.productId}" is not available.` };
       }
 
-      // Check variant price if applicable, otherwise fallback to base product price
+      productIds.push(product.id);
+      // Look up the category ID for coupon applicability validation
+      if (product.category) {
+        const categoryRecord = await prisma.category.findFirst({
+          where: { name: product.category },
+          select: { id: true },
+        });
+        if (categoryRecord && !categoryIds.includes(categoryRecord.id)) {
+          categoryIds.push(categoryRecord.id);
+        }
+      }
+
+      // Find the variant and validate inventory
       let unitPrice = product.price;
+      let variantId = "";
+      let variantRecord = null;
+
       if (product.variants && product.variants.length > 0) {
         const variant = product.variants.find(
           (v) =>
             v.size.toLowerCase() === item.size.toLowerCase() &&
             v.color.toLowerCase() === item.color.toLowerCase()
         );
-        if (variant && variant.price !== null && variant.price !== undefined) {
+
+        if (!variant) {
+          return { error: `Selected variant (${item.size} / ${item.color}) is not available for ${product.name}.` };
+        }
+
+        variantId = variant.id;
+        variantRecord = await prisma.productVariant.findUnique({
+          where: { id: variant.id },
+          select: { stock: true, available: true, id: true },
+        });
+
+        if (!variantRecord) {
+          return { error: `Variant not found for ${product.name}.` };
+        }
+
+        if (!variantRecord.available) {
+          return { error: `${product.name} (${item.size} / ${item.color}) is currently unavailable.` };
+        }
+
+        if (variantRecord.stock < item.quantity) {
+          return {
+            error: `Insufficient stock for ${product.name} (${item.size} / ${item.color}). Only ${variantRecord.stock} available.`,
+          };
+        }
+
+        if (variant.price !== null && variant.price !== undefined) {
           unitPrice = variant.price;
         }
       }
@@ -129,6 +177,7 @@ export async function createCheckoutOrder(
       validatedItems.push({
         productId: product.id,
         productName: product.name,
+        variantId,
         variantSize: item.size,
         variantColor: item.color,
         unitPrice,
@@ -138,10 +187,33 @@ export async function createCheckoutOrder(
       });
     }
 
+    // Validate coupon if provided
+    let discountAmount = 0;
+    let validatedCouponCode: string | null = null;
+
+    if (couponCode && couponCode.trim()) {
+      const couponResult = await validateCoupon(
+        couponCode,
+        userId,
+        subtotal,
+        productIds,
+        categoryIds
+      );
+
+      if (!couponResult.valid) {
+        return { error: couponResult.error };
+      }
+
+      discountAmount = couponResult.discount;
+      validatedCouponCode = couponResult.coupon.code;
+    }
+
     // Compute shipping server-side
     const shippingAmount =
       subtotal >= store.shipping.freeThreshold ? 0 : store.shipping.flatRate;
-    const totalAmount = subtotal + shippingAmount;
+
+    // Final total: subtotal - discount + shipping
+    const totalAmount = subtotal - discountAmount + shippingAmount;
 
     // finalShipping is guaranteed non-null here (guarded by early return above)
     if (!finalShipping) {
@@ -162,6 +234,8 @@ export async function createCheckoutOrder(
         shippingAmount,
         totalAmount,
         currency: "INR",
+        couponCode: validatedCouponCode,
+        discountAmount,
         shippingFullName: finalShipping.fullName,
         shippingPhone: finalShipping.phone,
         shippingAddressLine1: finalShipping.addressLine1,
@@ -174,6 +248,7 @@ export async function createCheckoutOrder(
           create: validatedItems.map((item) => ({
             productId: item.productId,
             productName: item.productName,
+            variantId: item.variantId || null,
             variantSize: item.variantSize,
             variantColor: item.variantColor,
             unitPrice: item.unitPrice,
@@ -237,6 +312,8 @@ export async function createCheckoutOrder(
         email: session.user.email || "",
         phone: finalShipping.phone,
       },
+      discount: discountAmount > 0 ? discountAmount : undefined,
+      couponCode: validatedCouponCode || undefined,
     };
   } catch (error: unknown) {
     console.error("Error creating checkout order:", error);

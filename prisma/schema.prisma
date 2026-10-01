@@ -16,10 +16,12 @@ model User {
   passwordHash  String?
   role          Role      @default(CUSTOMER)
 
-  accounts  Account[]
-  sessions  Session[]
-  addresses Address[]
-  orders    Order[]
+  accounts     Account[]
+  sessions     Session[]
+  addresses    Address[]
+  orders       Order[]
+  reviews      Review[]
+  couponUsages CouponUsage[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -114,11 +116,15 @@ model Order {
   shippingState        String
   shippingPostalCode   String
   shippingCountry      String
+  couponCode           String?
+  discountAmount       Int                  @default(0) // in paise
+  inventoryProcessedAt DateTime?
   createdAt            DateTime             @default(now())
   updatedAt            DateTime             @updatedAt
   orderItems           OrderItem[]
   payments             Payment[]
   statusHistory        OrderStatusHistory[]
+  couponUsage          CouponUsage?
 
   @@index([userId])
   @@index([status])
@@ -232,6 +238,7 @@ model Product {
   published Boolean @default(true)
 
   variants ProductVariant[]
+  reviews  Review[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -255,6 +262,8 @@ model ProductVariant {
   sku       String   @unique
   available Boolean  @default(true)
   images    String[]
+  lowStockThreshold Int @default(5)
+  inventoryUpdatedAt DateTime?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -262,3 +271,83 @@ model ProductVariant {
   @@index([productId])
   @@index([sku])
 }
+
+enum ReviewStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  FLAGGED
+}
+
+model Review {
+  id        String       @id @default(cuid())
+  rating    Int          // 1-5
+  title     String?
+  comment   String?      @db.Text
+  status    ReviewStatus @default(PENDING)
+  isVerified Boolean     @default(false) // Verified purchase
+
+  productId String
+  product   Product      @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  userId    String
+  user      User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  images    ReviewImage[]
+
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+
+  @@unique([userId, productId]) // One review per user per product
+  @@index([productId, status])
+  @@index([status])
+}
+
+model ReviewImage {
+  id        String   @id @default(cuid())
+  url       String
+  publicId  String?  // Cloudinary public_id for deletion
+  reviewId  String
+  review    Review   @relation(fields: [reviewId], references: [id], onDelete: Cascade)
+
+  @@index([reviewId])
+}
+
+model Coupon {
+  id                String   @id @default(cuid())
+  code              String   @unique
+  discountType      String   // "PERCENTAGE" | "FIXED_AMOUNT"
+  discountValue     Int      // Percentage (1-100) or fixed amount in paise
+  maxDiscount       Int?     // Maximum discount in paise (for percentage)
+  minOrderAmount    Int?     // Minimum order subtotal in paise
+  usageLimit        Int?     // Total usage limit
+  usageCount        Int      @default(0)
+  perUserLimit      Int?     // Max uses per customer
+  startsAt          DateTime?
+  expiresAt         DateTime?
+  isActive          Boolean  @default(true)
+  applicableProductIds  String[] // Optional: specific products
+  applicableCategoryIds String[] // Optional: specific categories
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  usages CouponUsage[]
+
+  @@index([code])
+  @@index([isActive, expiresAt])
+}
+
+model CouponUsage {
+  id        String   @id @default(cuid())
+  couponId  String
+  coupon    Coupon   @relation(fields: [couponId], references: [id], onDelete: Cascade)
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  orderId   String   @unique
+  order     Order    @relation(fields: [orderId], references: [id])
+  createdAt DateTime @default(now())
+
+  @@unique([couponId, userId, orderId])
+  @@index([couponId, userId])
+}
+

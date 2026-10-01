@@ -92,7 +92,7 @@ export default async function AdminDashboardPage() {
   );
 }
 
-function MetricCard({ title, value, icon: Icon }: { title: string, value: string, icon: any }) {
+function MetricCard({ title, value, icon: Icon }: { title: string, value: string, icon: React.ElementType }) {
   return (
     <div className="bg-white border border-line rounded-sm p-6 shadow-sm">
       <div className="flex items-center justify-between mb-4">

@@ -234,7 +234,7 @@ export const getAllProducts = async (options: {
   category?: string
   sort?: string
 } = {}): Promise<Product[]> => {
-  const where: any = {}
+  const where: any = {} // eslint-disable-line @typescript-eslint/no-explicit-any
 
   if (options.collection) {
     where.collection = {
@@ -248,7 +248,7 @@ export const getAllProducts = async (options: {
     }
   }
 
-  const orderBy: any = { createdAt: 'desc' }
+  const orderBy: any = { createdAt: 'desc' } // eslint-disable-line @typescript-eslint/no-explicit-any
   if (options.sort === 'price-low-high') {
     orderBy.price = 'asc'
   } else if (options.sort === 'price-high-low') {

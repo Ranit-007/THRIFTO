@@ -7,9 +7,9 @@ import { Save, Trash2, ArrowLeft } from "lucide-react";
 import Link from "next/link";
 
 type ProductFormProps = {
-  initialData?: any;
-  categories: any[];
-  collections: any[];
+  initialData?: any; // eslint-disable-line @typescript-eslint/no-explicit-any
+  categories: any[]; // eslint-disable-line @typescript-eslint/no-explicit-any
+  collections: any[]; // eslint-disable-line @typescript-eslint/no-explicit-any
 };
 
 export function ProductForm({ initialData, categories, collections }: ProductFormProps) {
