@@ -9,8 +9,6 @@
   --color-ash: 140 120 115;
   --color-line: 220 210 195;
   --color-ember: 180 211 178;
-  --font-sans: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
-  --font-display: "Iowan Old Style", "Baskerville", "Times New Roman", serif;
   --page-gutter: clamp(1.25rem, 3.1vw, 3.75rem);
   --page-width: 1440px;
 }

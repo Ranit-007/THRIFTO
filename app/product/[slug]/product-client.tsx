@@ -67,22 +67,24 @@ export function ProductDetailClient({
   const [quickAddOpen, setQuickAddOpen] = useState(false);
   const [sizeGuideOpen, setSizeGuideOpen] = useState(false);
 
+  const hasVariants = Boolean(product.variants && product.variants.length > 0);
+
   // Get available sizes for selected color (if variant data exists)
-  const availableSizes = product.variants
-    ? product.variants
+  const availableSizes = hasVariants
+    ? product.variants!
         .filter((v) => v.color === selectedColor && v.available)
         .map((v) => v.size)
     : product.sizes;
 
   // Get unavailable sizes for selected color
-  const unavailableSizes = product.variants
-    ? product.variants
+  const unavailableSizes = hasVariants
+    ? product.variants!
         .filter((v) => v.color === selectedColor && !v.available)
         .map((v) => v.size)
     : [];
 
   // Get unavailable colors (colors where all sizes are sold out)
-  const unavailableColors = product.variants
+  const unavailableColors = hasVariants
     ? product.colors
         .filter((color) =>
           product.variants!.filter((v) => v.color === color.name && v.available).length === 0
@@ -94,8 +96,8 @@ export function ProductDetailClient({
   const isSelectedSizeAvailable = !unavailableSizes.includes(selectedSize || "");
 
   // Determine if product is in stock (at least one variant available)
-  const hasAvailableVariants = product.variants
-    ? product.variants.some((v) => v.available)
+  const hasAvailableVariants = hasVariants
+    ? product.variants!.some((v) => v.available)
     : product.stockStatus !== "sold_out";
 
   const lowStock = product.stockStatus === "low_stock";

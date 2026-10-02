@@ -20,12 +20,23 @@ export async function generateMetadata({ params }: CollectionPageProps): Promise
   }
 
   return {
-    title: `${collection.name} | ${brand.name}`,
+    title: collection.name,
     description: collection.description,
     openGraph: {
       title: collection.name,
       description: collection.description,
+      type: "website",
       images: collection.image ? [collection.image] : [],
+      siteName: brand.name,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: collection.name,
+      description: collection.description,
+      images: collection.image ? [collection.image] : [],
+    },
+    alternates: {
+      canonical: `/collection/${slug}`,
     },
   };
 }

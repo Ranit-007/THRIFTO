@@ -86,7 +86,18 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ page: string }> }): Promise<Metadata> {
   const { page } = await params;
   const content = pages[page as PageKey];
-  return content ? { title: `${content.title} | ${brand.name}`, description: content.copy } : {};
+
+  // Define which pages should not be indexed
+  const noindexPages = ['privacy', 'terms', 'shipping', 'returns'];
+
+  if (content) {
+    return {
+      title: content.title,
+      description: content.copy,
+      ...(noindexPages.includes(page) ? { robots: { index: false, follow: false } } : {}),
+    };
+  }
+  return {};
 }
 
 export default async function StorefrontPlaceholderPage({ params }: { params: Promise<{ page: string }> }) {

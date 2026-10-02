@@ -4,8 +4,12 @@ import { getAllProducts } from "@/lib/shop-data";
 import { brand } from "@/config/brand";
 
 export const metadata: Metadata = {
-  title: `Wishlist | ${brand.name}`,
+  title: "Wishlist",
   description: "View your saved favorite pieces.",
+  robots: {
+    index: false,
+    follow: false,
+  },
 };
 
 export default async function WishlistPage() {

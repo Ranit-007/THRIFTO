@@ -4,8 +4,22 @@ import { getAllProducts, getAllCollections } from "@/lib/shop-data";
 import { brand } from "@/config/brand";
 
 export const metadata: Metadata = {
-  title: `Shop | ${brand.name}`,
+  title: "Shop",
   description: "Browse our collection of premium T-shirts and streetwear.",
+  openGraph: {
+    title: "Shop",
+    description: "Browse our collection of premium T-shirts and streetwear.",
+    type: "website",
+    siteName: brand.name,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Shop",
+    description: "Browse our collection of premium T-shirts and streetwear.",
+  },
+  alternates: {
+    canonical: "/shop",
+  },
 };
 
 export default function ShopPage({

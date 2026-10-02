@@ -6,6 +6,7 @@ import { brand } from "@/config/brand";
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import { getProductReviewStats, canUserReviewProduct } from "@/lib/review-service";
+import { ProductJsonLd, BreadcrumbJsonLd, OrganizationJsonLd } from "@/components/seo/json-ld";
 
 interface ProductPageProps {
   params: Promise<{ slug: string }>;
@@ -19,13 +20,37 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
     return { title: "Product not found" };
   }
 
+  const hasVariants = Boolean(product.variants && product.variants.length > 0);
+  const hasAvailableVariants = hasVariants
+    ? product.variants!.some((v) => v.available)
+    : product.stockStatus !== "sold_out";
+
   return {
-    title: `${product.name} | ${brand.name}`,
+    title: product.name,
     description: product.description,
     openGraph: {
       title: product.name,
       description: product.description,
+      // Using "website" type as product type isn't in Next.js Metadata type definitions
+      type: "website",
+      images: product.images.length > 0 ? product.images.slice(0, 3) : [],
+      siteName: brand.name,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: product.name,
+      description: product.description,
       images: product.images.length > 0 ? [product.images[0]] : [],
+    },
+    alternates: {
+      canonical: `/product/${product.slug}`,
+    },
+    other: {
+      "product:price:amount": (product.price / 100).toFixed(2),
+      "product:price:currency": "INR",
+      "product:availability": hasAvailableVariants ? "in stock" : "out of stock",
+      "product:condition": "new",
+      "product:brand": brand.name,
     },
   };
 }
@@ -69,13 +94,58 @@ export default async function ProductPage({ params }: ProductPageProps) {
       : Promise.resolve({ eligible: false, reason: "You must be logged in to review" }),
   ]);
 
+  const hasVariants = Boolean(product.variants && product.variants.length > 0);
+  const hasAvailableVariants = hasVariants
+    ? product.variants!.some((v) => v.available)
+    : product.stockStatus !== "sold_out";
+
   return (
-    <ProductDetailClient
-      product={product}
-      relatedProducts={relatedProducts}
-      reviews={reviews}
-      reviewStats={reviewStats}
-      canReview={reviewEligibility.eligible}
-    />
+    <>
+      <ProductDetailClient
+        product={product}
+        relatedProducts={relatedProducts}
+        reviews={reviews}
+        reviewStats={reviewStats}
+        canReview={reviewEligibility.eligible}
+      />
+      {/* JSON-LD Structured Data */}
+      <ProductJsonLd
+        product={{
+          id: product.id,
+          name: product.name,
+          description: product.description,
+          slug: product.slug,
+          price: product.price,
+          compareAtPrice: product.compareAtPrice ?? undefined,
+          images: product.images,
+          rating: product.rating ?? undefined,
+          reviewCount: product.reviewCount ?? undefined,
+          stockStatus: product.stockStatus,
+          material: product.material,
+          brand: brand.name
+        }}
+        hasVariants={hasVariants}
+        availableVariants={hasVariants
+          ? product.variants!.map(v => ({
+              size: v.size,
+              color: v.color,
+              price: v.price,
+              available: v.available,
+              stock: v.stock
+            }))
+          : []
+        }
+        reviewStats={reviewStats}
+      />
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", url: "/" },
+          { name: "Shop", url: "/shop" },
+          ...(product.collection ? [{ name: product.collection, url: `/shop?collection=${product.collection.toLowerCase().replace(/\s+/g, '-')}` }] : []),
+          { name: product.name, url: `/product/${product.slug}` }
+        ]}
+      />
+      <OrganizationJsonLd />
+    </>
   );
 }

@@ -5,8 +5,12 @@ import { prisma } from "@/lib/prisma";
 import CheckoutClient from "./checkout-client";
 
 export const metadata: Metadata = {
-  title: "Checkout | Baundule",
+  title: "Checkout",
   description: "Complete your order.",
+  robots: {
+    index: false,
+    follow: false,
+  },
 };
 
 export default async function CheckoutPage() {

@@ -4,8 +4,12 @@ import { ArrowUpRight } from "lucide-react";
 import { brand } from "@/config/brand";
 
 export const metadata: Metadata = {
-  title: `Search | ${brand.name}`,
+  title: "Search",
   description: "Search our collection.",
+  robots: {
+    index: false,
+    follow: false,
+  },
 };
 
 export default function SearchPage() {

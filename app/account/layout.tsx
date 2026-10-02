@@ -1,6 +1,15 @@
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import { AccountSidebar } from "./sidebar";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "My Account",
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
 
 export default async function AccountLayout({ children }: { children: React.ReactNode }) {
   const session = await auth();
